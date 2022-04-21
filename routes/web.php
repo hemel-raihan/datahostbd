@@ -90,6 +90,12 @@ Route::get('/gallery/all', 'Corporate\HomepageController@gallery_view')->name('g
 
 Route::get('default/faq', 'Corporate\HomepageController@faqpage')->name('faq');
 
+Route::get('default/career', 'Corporate\HomepageController@career')->name('career');
+Route::get('job/details/{slug}', 'Corporate\HomepageController@career_details')->name('career.details');
+
+Route::get('default/price/category', 'Corporate\HomepageController@price_category')->name('pricecategory');
+Route::get('default/price-plan/{slug}', 'Corporate\HomepageController@all_price')->name('all.price');
+
 //for admin authentication
 Route::get('adminlogin', 'Adminlogin\LoginController@showloginform')->name('admin.login')->middleware('installcheck');
  Route::post('adminlogin', 'Adminlogin\LoginController@login')->name('admin.loginform');
@@ -252,6 +258,10 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
 
     Route::resource('clients','Client\ClientController');
     Route::get('fetch/clients', 'Client\ClientController@fetchclient')->name('clients.fetch');
+
+    Route::resource('faqs','FaqController');
+    Route::get('fetch/faqs', 'FaqController@fetchfaq')->name('faqs.fetch');
+    Route::get('faqs/{id}/status', 'FaqController@status')->name('faqs.status');
 });
 
 

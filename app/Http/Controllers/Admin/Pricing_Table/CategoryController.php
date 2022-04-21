@@ -150,7 +150,7 @@ class CategoryController extends Controller
         Gate::authorize('app.price.categories.edit');
         $categories = Pricecategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
         //$subcat = Pricecategory::all();
-        return view('backend.admin.pricing_table.category.form',compact('servicecategory','categories'));
+        return view('backend.admin.pricing_table.category.form',compact('pricecategory','categories'));
     }
 
     /**

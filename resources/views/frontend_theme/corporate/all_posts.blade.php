@@ -22,6 +22,16 @@
 {{-- <section id="content">
     <div class="content-wrap">
         <div class="container clearfix"> --}}
+
+@isset($alljobs)
+@include('frontend_theme.corporate.front_layout.vertical.banner',['alljobs'=>$alljobs])
+@endisset
+
+    <div class="container-sm">
+
+    </br>
+</br>
+
             @if ($page->rightsidebar_id == 0 && $page->leftsidebar_id == 0)
         <div class="postcontent col-lg-12">
         @elseif(!$page->rightsidebar_id == 0 && $page->leftsidebar_id == 0)
@@ -32,7 +42,7 @@
         <div class="postcontent col-lg-6">
         @endif
 
-            
+
 
             <!-- Portfolio Items
             ============================================= -->
@@ -188,8 +198,76 @@
                 @endisset
 
 
+                @isset($alljobs)
+                <div class="row">
+
+                    @foreach ($alljobs as $alljob)
+                    <div class="col-md-6">
+                        <div class="grid-inner row align-items-center g-0 p-4" style="background: #f7f7f7;">
+                            {{-- <div class="col-md-4 mb-md-0">
+                                <a href="#" class="entry-image">
+                                    <img src="images/events/thumbs/1.jpg" alt="Inventore voluptates velit totam ipsa">
+                                    <div class="entry-date">10<span>Apr</span></div>
+                                </a>
+                            </div> --}}
+                            <div class="col-md-12 ps-md-4">
+                                <div class="entry-title title-xs">
+                                    <h3><a href="{{route('career.details',$alljob->slug)}}">{{$alljob->title}}</a></h3>
+                                        <h4 style="background-color: #e0f5d7;
+                                                   border-radius: 20px;
+                                                   padding: 5px 15px;
+                                                   color: #449626;
+                                                   text-transform: capitalize;
+                                                   font-size: 14px;
+                                                   font-weight: 500;
+                                                   display: inline-block;
+                                                   margin-bottom: 16px;
+                                                   ">{{$alljob->employement_status}}</h4>
+                                </div>
+                                <div class="entry-meta">
+                                    <ul>
+                                        <li>Deadline: <a href="#"><i class="icon-time"></i>{{ \Carbon\Carbon::parse($alljob->application_deadline)->isoFormat('Do MMM YYYY')}}</a></li>
+                                        <li><a href="#"><i class="icon-map-marker2"></i> Melbourne</a></li>
+                                        <li>Vacancy : {{$alljob->vacancy}}</li>
+                                    </ul>
+                                </div>
+                                <div class="entry-content">
+                                    <a href="#" class="btn btn-secondary btn-sm" disabled="disabled">Buy Tickets</a> <a href="#" class="btn btn-danger btn-sm">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+
+                </div>
+
+                @endisset
+
+                @isset($pricecategories)
+
+                <div class="row pricing col-mb-30 mb-4">
+                    @foreach ($pricecategories as $key => $pricecategory)
+                    <div class="col-md-6 col-lg-4">
+                        <div class="pricing-box pricing-simple p-5 {{($key%2 == 0) ? 'bg-danger' : 'bg-primary'}} dark text-center">
+                            <div class="pricing-title">
+                                <span>Try Now</span>
+                                <h3>{{$pricecategory->name}}</h3>
+                            </div>
+                            <div class="pricing-action">
+                                <a href="{{route('all.price',$pricecategory->slug)}}" class="btn btn-light btn-lg">Get Started</a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                @endisset
+
+
 
             </div><!-- #portfolio end -->
+
+        </div>
 
         </div>
 

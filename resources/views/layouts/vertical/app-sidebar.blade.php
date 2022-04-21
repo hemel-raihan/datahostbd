@@ -163,6 +163,10 @@
 							</ul>
 						</li>
 
+                        <li><a href="{{route('admin.faqs.create')}}" class="side-menu__item"><i class="icon-line-fast-forward"></i>FAQ</a></li>
+
+                        
+
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-align-justify"></i><span class="side-menu__label">Sidebar</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">

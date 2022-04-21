@@ -14,6 +14,9 @@
 @isset($productt)
 @include('frontend_theme.corporate.front_layout.vertical.banner',['productt'=>$productt])
 @endisset
+@isset($pricecategory)
+@include('frontend_theme.corporate.front_layout.vertical.banner',['pricecategory'=>$pricecategory])
+@endisset
 
 
                     @php
@@ -107,6 +110,41 @@
                                             <div class="entry-content">
                                                 <p>{!!Str::limit($post->desc, 70)!!}</p>
                                                 <a href="{{route('blog.details',$post->slug)}}" class="more-link">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                @endisset
+
+
+                                @isset($prices)
+                            </br>
+                        </br>
+                                <div id="oc-portfolio" class="owl-carousel portfolio-carousel carousel-widget" data-margin="20" data-pagi="true" data-autoplay="10000" data-items-xs="1" data-items-sm="1" data-items-md="3" data-items-xl="4">
+                                    @foreach ($prices as $pricepost)
+                                    <div class="portfolio-item">
+                                        <div class="pricing-box pricing-simple px-5 py-4 bg-light text-center text-md-start">
+                                            <div class="pricing-title">
+                                                {{-- <span class="text-danger">Most Popular</span> --}}
+                                                <h3>{{$pricepost->title}}</h3>
+                                            </div>
+                                            <div class="pricing-price">
+                                                <span class="price-unit">৳</span>{{$pricepost->price}}<span class="price-tenure">{{$pricepost->duration}}</span>
+                                            </div>
+                                            <div class="pricing-features">
+                                                {{-- <ul class="iconlist">
+                                                    <li><i class="icon-check text-smaller"></i> <strong>Premium</strong> Plugins</li>
+                                                    <li><i class="icon-check text-smaller"></i> <strong>SEO</strong> Features</li>
+                                                    <li><i class="icon-check text-smaller"></i> <strong>Full</strong> Access</li>
+                                                    <li><i class="icon-check text-smaller"></i> <strong>100</strong> User Accounts</li>
+                                                    <li><i class="icon-check text-smaller"></i> <strong>1 Year</strong> License</li>
+                                                    <li><i class="icon-check text-smaller"></i> <strong>24/7</strong> Support</li>
+                                                </ul> --}}
+                                                {!!$pricepost->body!!}
+                                            </div>
+                                            <div class="pricing-action">
+                                                <a href="#" class="btn btn-danger btn-lg">Get Started</a>
                                             </div>
                                         </div>
                                     </div>

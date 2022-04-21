@@ -546,6 +546,96 @@
 
 
 
+                    @isset($job)
+
+                            @if ($page->rightsidebar_id == 0 && $page->leftsidebar_id == 0)
+                            <div class="postcontent col-lg-12">
+                            @elseif(!$page->rightsidebar_id == 0 && $page->leftsidebar_id == 0)
+                            <div class="postcontent col-lg-9">
+                            @elseif($page->rightsidebar_id == 0 && !$page->leftsidebar_id == 0)
+                            <div class="postcontent col-lg-9">
+                            @elseif(!$page->rightsidebar_id == 0 && !$page->leftsidebar_id == 0)
+                            <div class="postcontent col-lg-6">
+                            @endif
+
+                                    <div class="single-post mb-0">
+
+                                        <!-- Single Post
+                                        ============================================= -->
+                                        <div class="entry clearfix">
+
+                                            <!-- Entry Title
+                                            ============================================= -->
+                                            <div class="entry-title">
+                                                <h2>{{$job->title}}</h2>
+                                            </div><!-- .entry-title end -->
+
+                                            <!-- Entry Meta
+                                            ============================================= -->
+                                            <div class="entry-meta">
+                                                <ul>
+                                                    <li><i class="icon-calendar3"></i>Deadline: {{ \Carbon\Carbon::parse($job->application_deadline)->isoFormat('Do MMM YYYY')}}</li>
+                                                    <li><a href="#">Status:  {{$job->employement_status}}</a></li>
+                                                    <li><a href="#">Vacancy:  {{$job->vacancy}}</a></li>
+                                                    <li><i class="icon-folder-open"></i> <a href="#">{{$job->jobcategory->name}}</a> </li>
+                                                </ul>
+                                            </div><!-- .entry-meta end -->
+
+                                            <!-- Entry Content
+                                            ============================================= -->
+                                            <div class="entry-content mt-0">
+
+
+                                                <p>{!!$job->body!!}</p>
+
+                                                <!-- Post Single - Content End -->
+
+                                                <div class="clear"></div>
+
+                                                <!-- Post Single - Share
+                                                ============================================= -->
+                                                <div class="si-share border-0 d-flex justify-content-between align-items-center">
+                                                    <span>Share this Post:</span>
+                                                    <div>
+                                                        <a href="#" class="social-icon si-borderless si-facebook">
+                                                            <i class="icon-facebook"></i>
+                                                            <i class="icon-facebook"></i>
+                                                        </a>
+                                                        <a href="#" class="social-icon si-borderless si-twitter">
+                                                            <i class="icon-twitter"></i>
+                                                            <i class="icon-twitter"></i>
+                                                        </a>
+                                                        <a href="#" class="social-icon si-borderless si-pinterest">
+                                                            <i class="icon-pinterest"></i>
+                                                            <i class="icon-pinterest"></i>
+                                                        </a>
+                                                        <a href="#" class="social-icon si-borderless si-gplus">
+                                                            <i class="icon-gplus"></i>
+                                                            <i class="icon-gplus"></i>
+                                                        </a>
+                                                        <a href="#" class="social-icon si-borderless si-rss">
+                                                            <i class="icon-rss"></i>
+                                                            <i class="icon-rss"></i>
+                                                        </a>
+                                                        <a href="#" class="social-icon si-borderless si-email3">
+                                                            <i class="icon-email3"></i>
+                                                            <i class="icon-email3"></i>
+                                                        </a>
+                                                    </div>
+                                                </div><!-- Post Single - Share End -->
+
+                                            </div>
+                                        </div><!-- .entry end -->
+
+                                    </div>
+
+                                </div>
+
+
+                    @endisset
+
+
+
 
                             </div>
 

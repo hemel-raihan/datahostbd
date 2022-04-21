@@ -6,6 +6,7 @@ use App\Models\blog\Post;
 use App\Models\Admin\Page;
 use Illuminate\Http\Request;
 use App\Models\blog\category;
+use App\Models\Career\Jobpost;
 use App\Models\Gallery\Gallery;
 use App\Models\Product\Product;
 use App\Models\Service\Service;
@@ -301,5 +302,34 @@ class HomepageController extends Controller
     public function faqpage()
     {
         return view('frontend_theme.corporate.faq');
+    }
+
+    public function career()
+    {
+        $page = Custompage::where([['type','=','main-page'],['status','=',true]])->orderBy('id','desc')->first();
+        $alljobs = Jobpost::all();
+        return view('frontend_theme.corporate.all_posts',compact('alljobs','page'));
+    }
+
+    public function career_details($slug)
+    {
+        $page = Custompage::where([['type','=','main-page'],['status','=',true]])->orderBy('id','desc')->first();
+        $job = Jobpost::where('slug',$slug)->first();
+        return view('frontend_theme.corporate.posts_singlepage',compact('job','page'));
+    }
+
+    public function price_category()
+    {
+        $page = Custompage::where([['type','=','main-page'],['status','=',true]])->orderBy('id','desc')->first();
+        $pricecategories = Pricecategory::all();
+        return view('frontend_theme.corporate.all_posts',compact('pricecategories','page'));
+    }
+
+    public function all_price($slug)
+    {
+        $page = Custompage::where([['type','=','main-page'],['status','=',true]])->orderBy('id','desc')->first();
+        $pricecategory = Pricecategory::where('slug',$slug)->first();
+        $prices = $pricecategory->prices()->get();
+        return view('frontend_theme.corporate.default-page',compact('prices','page','pricecategory'));
     }
 }
