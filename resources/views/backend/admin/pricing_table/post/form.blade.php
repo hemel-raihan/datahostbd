@@ -330,75 +330,7 @@
 
                     @endisset
 
-					@isset($editsidebars)
-
-                    <div class="form-group">
-						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option value="">Select Left Sidebar</option>
-                            <option value="0" {{($price->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
-                            @foreach ($editsidebars as $editsidebar)
-                            @if($editsidebar->type == 'Left Side Bar')
-                            <option value="{{$editsidebar->id}}" {{($price->leftsidebar_id == $editsidebar->id) ? 'selected' : ''}}>{{$editsidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
-					</div>
-
-
-					<div class="form-group">
-						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option value="">Select Right Sidebar</option>
-                            <option value="0" {{($price->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
-                            @foreach ($editsidebars as $editsidebar)
-                            @if($editsidebar->type == 'Right Side Bar')
-							<option value="{{$editsidebar->id}}" {{($price->rightsidebar_id == $editsidebar->id) ? 'selected' : ''}} >{{$editsidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
-					</div>
-
-                    @else
-
-                    <div class="form-group">
-						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control @error('leftsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
-							<option value="">Select Left Sidebar</option>
-                            <option value="0">None</option>
-                            @foreach ($sidebars as $sidebar)
-                            @if($sidebar->type == 'Left Side Bar')
-                            <option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
-                        @error('leftsidebar_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-					</div>
-
-
-					<div class="form-group">
-						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control @error('rightsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
-							<option value="">Select Right Sidebar</option>
-                            <option value="0">None</option>
-                            @foreach ($sidebars as $sidebar)
-                            @if($sidebar->type == 'Right Side Bar')
-							<option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
-                        @error('rightsidebar_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-					</div>
-
-                    @endisset
+					
 
 				</div>
 

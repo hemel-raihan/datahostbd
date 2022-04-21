@@ -105,8 +105,7 @@
 
 								</tbody>
 							</table>
-                            {{-- {{ $categories->links('vendor.pagination.custom') }} --}}
-                            @include('vendor.pagination.custom',['paginator'=>$categories])
+                            {{ $categories->links('vendor.pagination.custom') }}
 						</div>
 					</div>
 				</div>

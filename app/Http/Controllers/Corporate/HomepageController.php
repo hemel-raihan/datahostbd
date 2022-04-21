@@ -37,128 +37,126 @@ class HomepageController extends Controller
         // $posts = Post::where('scrollable',1)->orderBy('id','desc')->limit(5)->get();
 
         $page = Custompage::where([['type','=','main-page'],['status','=',true]])->with('pagebuilders')->orderBy('id','desc')->first();
-        foreach($page->pagebuilders as $test)
-        {
-            foreach($test->elements as $tes)
-            {
-                if($tes->module_type == 'Blog Category')
-                {
-                    $blogcategories = category::all();
-                }
-                else
-                {
-                    $blogcategories = null;
-                }
+        // foreach($page->pagebuilders as $test)
+        // {
+        //     foreach($test->elements as $tes)
+        //     {
+        //         if($tes->module_type == 'Blog Category')
+        //         {
+        //             $blogcategories = category::all();
+        //         }
+        //         else
+        //         {
+        //             $blogcategories = null;
+        //         }
 
-                if($tes->module_type == 'Service Category')
-                {
-                    $servicecategories = Servicecategory::all();
-                }
-                else
-                {
-                    $servicecategories = null;
-                }
+        //         if($tes->module_type == 'Service Category')
+        //         {
+        //             $servicecategories = Servicecategory::all();
+        //         }
+        //         else
+        //         {
+        //             $servicecategories = null;
+        //         }
 
-                if($tes->module_type == 'General Category')
-                {
-                    $generalcategories = Contentcategory::all();
-                }
-                else
-                {
-                    $generalcategories = null;
-                }
+        //         if($tes->module_type == 'General Category')
+        //         {
+        //             $generalcategories = Contentcategory::all();
+        //         }
+        //         else
+        //         {
+        //             $generalcategories = null;
+        //         }
 
-                if($tes->module_type == 'Portfolio Category')
-                {
-                    $portfoliocategories = Portfoliocategory::all();
-                }
-                else
-                {
-                    $portfoliocategories = null;
-                }
-                if($tes->module_type == 'Price-Table Category')
-                {
-                    $pricecategories = Pricecategory::all();
-                }
-                else
-                {
-                    $pricecategories = null;
-                }
-                if($tes->module_type == 'Product Category')
-                {
-                    $productcategories = Productcategory::all();
-                }
-                else
-                {
-                    $productcategories = null;
-                }
-                if($tes->module_type == 'Blog Post')
-                {
-                    $blogposts = Post::where('status',1)->orderBy('id','desc')->limit(5)->get();
-                }
-                else
-                {
-                    $blogposts = null;
-                }
-                if($tes->module_type == 'General Post')
-                {
-                    $generalposts = Contentpost::where('status',1)->orderBy('id','desc')->limit(5)->get();
-                }
-                else
-                {
-                    $generalposts = null;
-                }
-                if($tes->module_type == 'Service Post')
-                {
-                    $serviceposts = Service::all();
-                }
-                else
-                {
-                    $serviceposts = null;
-                }
-                if($tes->module_type == 'Portfolio Post')
-                {
-                    $portfolioposts = Portfolio::all();
-                }
-                else
-                {
-                    $portfolioposts = null;
-                }
-                if($tes->module_type == 'Price-Table Post')
-                {
-                    $priceposts = Price::all();
-                }
-                else
-                {
-                    $priceposts = null;
-                }
-                if($tes->module_type == 'Product Post')
-                {
-                    $productposts = Product::all();
+        //         if($tes->module_type == 'Portfolio Category')
+        //         {
+        //             $portfoliocategories = Portfoliocategory::all();
+        //         }
+        //         else
+        //         {
+        //             $portfoliocategories = null;
+        //         }
+        //         if($tes->module_type == 'Price-Table Category')
+        //         {
+        //             $pricecategories = Pricecategory::all();
+        //         }
+        //         else
+        //         {
+        //             $pricecategories = null;
+        //         }
+        //         if($tes->module_type == 'Product Category')
+        //         {
+        //             $productcategories = Productcategory::all();
+        //         }
+        //         else
+        //         {
+        //             $productcategories = null;
+        //         }
+        //         if($tes->module_type == 'Blog Post')
+        //         {
+        //             $blogposts = Post::where('status',1)->orderBy('id','desc')->limit(5)->get();
+        //         }
+        //         else
+        //         {
+        //             $blogposts = null;
+        //         }
+        //         if($tes->module_type == 'General Post')
+        //         {
+        //             $generalposts = Contentpost::where('status',1)->orderBy('id','desc')->limit(5)->get();
+        //         }
+        //         else
+        //         {
+        //             $generalposts = null;
+        //         }
+        //         if($tes->module_type == 'Service Post')
+        //         {
+        //             $serviceposts = Service::all();
+        //         }
+        //         else
+        //         {
+        //             $serviceposts = Service::all();
+        //         }
+        //         if($tes->module_type == 'Portfolio Post')
+        //         {
+        //             $portfolioposts = Portfolio::all();
+        //         }
+        //         else
+        //         {
+        //             $portfolioposts = null;
+        //         }
+        //         if($tes->module_type == 'Price-Table Post')
+        //         {
+        //             $priceposts = Price::all();
+        //         }
+        //         else
+        //         {
+        //             $priceposts = null;
+        //         }
+        //         if($tes->module_type == 'Product Post')
+        //         {
+        //             $productposts = Product::all();
 
-                }
-                else
-                {
-                    $productposts = null;
-                }
+        //         }
+        //         else
+        //         {
+        //             $productposts = null;
+        //         }
 
+        //     }
 
-
-
-
-            }
-
-        }
+        // }
         Artisan::call('cache:clear');
-        if ($page->pagebuilders()->exists())
-        {
-            return view('frontend_theme.corporate.homepage',compact('page','blogcategories','servicecategories','generalcategories','portfoliocategories','pricecategories','blogposts'
-            ,'generalposts','serviceposts','portfolioposts','priceposts','productcategories','productposts','test'));
-        }
-        else
-        {
-            return view('frontend_theme.corporate.homepage',compact('page'));
-        }
+        return view('frontend_theme.corporate.homepage',compact('page'));
+
+        // if ($page->pagebuilders()->exists())
+        // {
+        //     return view('frontend_theme.corporate.homepage',compact('page','blogcategories','servicecategories','generalcategories','portfoliocategories','pricecategories','blogposts'
+        //     ,'generalposts','serviceposts','portfolioposts','priceposts','productcategories','productposts','test'));
+        // }
+        // else
+        // {
+        //     return view('frontend_theme.corporate.homepage',compact('page'));
+        // }
 
     }
 
@@ -196,10 +194,10 @@ class HomepageController extends Controller
         return view('frontend_theme.corporate.all_posts',compact('servicecategoryposts','servicecategory','page'));
     }
 
-    public function servicedetails($id)
+    public function servicedetails($slug)
     {
         $page = Custompage::where([['type','=','main-page'],['status','=',true]])->orderBy('id','desc')->first();
-        $service = Service::find($id);
+        $service = Service::where('slug',$slug)->first();
         foreach($service->servicecategories as $categories)
         {
             $service_id = $categories->id;

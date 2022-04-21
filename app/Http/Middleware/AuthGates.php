@@ -22,8 +22,8 @@ class AuthGates
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::guard('admin');
-        if (Schema::hasTable('permissions'))
-        {
+        // if (Schema::hasTable('permissions'))
+        // {
             if($user)
             {
                 $permissions = Permission::all();
@@ -36,7 +36,7 @@ class AuthGates
                     });
                 }
             }
-        }
+       // }
 
         return $next($request);
     }

@@ -24,7 +24,7 @@ class PriceController extends Controller
     {
         Gate::authorize('app.price.posts.self');
         $auth = Auth::guard('admin')->user();
-        $posts = Price::latest()->get();
+        $posts = Price::with('pricecategories')->latest()->get();
         return view('backend.admin.pricing_table.post.index',compact('posts','auth'));
     }
 
@@ -36,10 +36,10 @@ class PriceController extends Controller
     public function create()
     {
         Gate::authorize('app.price.posts.create');
-        $categories = Pricecategory::where('parent_id', '=', 0)->get();
-        $subcat = Pricecategory::all();
-        $sidebars = Sidebar::all();
-        return view('backend.admin.pricing_table.post.form',compact('categories','subcat','sidebars'));
+        $categories = Pricecategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        // $subcat = Pricecategory::all();
+        // $sidebars = Sidebar::all();
+        return view('backend.admin.pricing_table.post.form',compact('categories'));
     }
 
     /**
@@ -55,8 +55,6 @@ class PriceController extends Controller
                 'title' => 'required|unique:prices',
                 'image' => 'max:1024',
                 'categories' => 'required',
-                'leftsidebar_id' => 'required',
-                'rightsidebar_id' => 'required',
             ]);
 
 
@@ -169,10 +167,10 @@ class PriceController extends Controller
     public function edit(Price $price)
     {
         Gate::authorize('app.price.posts.edit');
-        $categories = Pricecategory::where('parent_id', '=', 0)->get();
-        $subcat = Pricecategory::all();
-        $editsidebars = Sidebar::all();
-        return view('backend.admin.pricing_table.post.form',compact('price','categories','subcat','editsidebars'));
+        $categories = Pricecategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        // $subcat = Pricecategory::all();
+        // $editsidebars = Sidebar::all();
+        return view('backend.admin.pricing_table.post.form',compact('price','categories'));
     }
 
     /**
@@ -189,8 +187,6 @@ class PriceController extends Controller
             'title' => 'required',
             'image' => 'max:1024',
             'categories' => 'required',
-            'leftsidebar_id' => 'required',
-            'rightsidebar_id' => 'required',
         ]);
 
         //get form image

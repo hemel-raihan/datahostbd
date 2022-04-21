@@ -11,12 +11,15 @@
 @isset($servicc)
 @include('frontend_theme.corporate.front_layout.vertical.banner',['servicc'=>$servicc])
 @endisset
+@isset($productt)
+@include('frontend_theme.corporate.front_layout.vertical.banner',['productt'=>$productt])
+@endisset
 
 
                     @php
                     $page = \App\Models\Pagebuilder\Custompage::where([['type','=','main-page'],['status','=',true]])->orderBy('id','desc')->first();
                     @endphp
-<div class="container-sm">
+          <div class="container-sm">
 
 
                                 @if ($page->rightsidebar_id == 0 && $page->leftsidebar_id == 0)
@@ -38,9 +41,9 @@
 
 
                                 @isset($custom_page)
-                                <div class="entry-title">
+                                {{-- <div class="entry-title">
                                     <h2>{{$custom_page->title}}</h2>
-                                </div>
+                                </div> --}}
                                 </br>
                                 <div class="body_content">
                                     {!!$custom_page->body!!}
@@ -117,9 +120,120 @@
                                 @endisset
 
 
+                                @isset($productt)
+
+                                <div class="single-post mb-0">
+
+                                    <!-- Single Post
+                                    ============================================= -->
+                                    <div class="entry clearfix">
+
+                                        <!-- Entry Title
+                                        ============================================= -->
+                                        <div class="entry-title">
+                                            <h2>{{$productt->title}}</h2>
+                                        </div><!-- .entry-title end -->
+
+                                        <!-- Entry Meta
+                                        ============================================= -->
+                                        <div class="entry-meta">
+                                            <ul>
+                                                <li style="font-size: 30px; font-weight: bold; color: black;"> Price: {{$productt->unit_price}}৳</li>
+                                                <li><i class="icon-folder-open"></i>
+                                                    @foreach ($productt->productcategories as $category)
+                                                    <a href="#">{{$category->name}}</a>
+                                                    @endforeach  </li>
+                                            </ul>
+                                        </div><!-- .entry-meta end -->
+
+                                        <!-- Entry Content
+                                        ============================================= -->
+                                        <div class="entry-content mt-0">
+
+                                            <!-- Entry Image
+                                            ============================================= -->
+                                            <div class="entry-image alignleft">
+                                                <a href="#"><img src="{{asset('uploads/productphoto/'.$productt->image)}}" alt="Blog Single"></a>
+                                            </div><!-- .entry-image end -->
+
+                                            <p>{!!$productt->desc!!}</p>
+
+                                            <!-- Post Single - Content End -->
+
+                                            <div class="clear"></div>
+
+                                            <!-- Post Single - Share
+                                            ============================================= -->
+                                            <div class="si-share border-0 d-flex justify-content-between align-items-center">
+                                                <span>Share this Post:</span>
+                                                <div>
+                                                    <a href="#" class="social-icon si-borderless si-facebook">
+                                                        <i class="icon-facebook"></i>
+                                                        <i class="icon-facebook"></i>
+                                                    </a>
+                                                    <a href="#" class="social-icon si-borderless si-twitter">
+                                                        <i class="icon-twitter"></i>
+                                                        <i class="icon-twitter"></i>
+                                                    </a>
+                                                    <a href="#" class="social-icon si-borderless si-pinterest">
+                                                        <i class="icon-pinterest"></i>
+                                                        <i class="icon-pinterest"></i>
+                                                    </a>
+                                                    <a href="#" class="social-icon si-borderless si-gplus">
+                                                        <i class="icon-gplus"></i>
+                                                        <i class="icon-gplus"></i>
+                                                    </a>
+                                                    <a href="#" class="social-icon si-borderless si-rss">
+                                                        <i class="icon-rss"></i>
+                                                        <i class="icon-rss"></i>
+                                                    </a>
+                                                    <a href="#" class="social-icon si-borderless si-email3">
+                                                        <i class="icon-email3"></i>
+                                                        <i class="icon-email3"></i>
+                                                    </a>
+                                                </div>
+                                            </div><!-- Post Single - Share End -->
+
+                                        </div>
+                                    </div><!-- .entry end -->
+
+                                    @if ($productt->files)
+
+                                    <a target="blank" href="{{ asset('uploads/productfiles/'.$productt->files) }}">
+                                        <img src="{{ asset('frontend/images/pdf.png') }}" alt="001-converted (1)_compressed (1).pdf" class="file-icon" />
+                                        Click here to View in new tab
+                                    </a>
+                                </br>
+                                    <div class="row justify-content-center">
+                                        <iframe src="{{ asset('uploads/files/'.$blog->files) }}" width="50%" height="800">
+                                                This browser does not support PDFs. Please download the PDF to view it: <a href="{{ asset('uploads/productfiles/'.$productt->files) }}">Download PDF</a>
+                                        </iframe>
+                                    </div>
+                                    @endif
+
+
+
+                                    @if(!$productt->gallaryimage == null)
+
+                                    <div class="masonry-thumbs grid-container grid-5" data-big="1" data-lightbox="gallery">
+                                        @php
+                                            $galaryimage = explode("|", $productt->gallaryimage);
+                                        @endphp
+                                        @foreach ($galaryimage as $key => $images)
+                                        <a class="grid-item" href="{{asset('uploads/productgallary_image/'.$images)}}" data-lightbox="gallery-item"><img src="{{asset('uploads/productgallary_image/'.$images)}}" alt="Gallery Thumb 1"></a>
+                                        @endforeach
+                                    </div>
+                                    @endif
+
+
+                                </div>
+                                @endisset
+
+
 
                             </div>
                         </div>
+                    </div>
 
 </div>
 

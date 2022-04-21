@@ -54,9 +54,9 @@
 								<thead>
 									<tr>
 										<th class="border-bottom-0">Title</th>
-                                        <th class="border-bottom-0">Added By</th>
+                                        <th class="border-bottom-0">Category</th>
                                         <th class="border-bottom-0">Price</th>
-										{{-- <th class="border-bottom-0">Status</th> --}}
+										<th class="border-bottom-0">Status</th>
 										<th class="border-bottom-0">Action</th>
 
 									</tr>
@@ -65,17 +65,20 @@
                                 @foreach($posts as $post)
 									<tr>
 										<td>{{Str::limit($post->title,'30')}}</td>
-                                        <td>{{$post->admin->name}}</td>
+                                        <td>
+                                        @foreach($post->productcategories as $category)
+                                        {{$category->name}}
+                                        @endforeach
+                                        </td>
                                         <td>{{$post->unit_price}}</td>
-										{{-- <td>
+                                        <td>
                                             @if($post->status == true)
-                                            <a href="{{route('admin.product.status',$post->id)}}" class="btn btn-green">Active</a>
+                                            <a href="{{route('admin.product.post.status',$post->id)}}" class="btn btn-green">Active</a>
                                             @else
-                                            <a href="{{route('admin.product.status',$post->id)}}" class="btn btn-red">InActive</a>
+                                            <a href="{{route('admin.product.post.status',$post->id)}}" class="btn btn-red">InActive</a>
                                             @endif
-                                        </td> --}}
+                                        </td>
 										<td>
-
                                             @if($auth->hasPermission('app.product.posts.edit'))
                                             <a href="{{route('admin.products.edit',$post->id)}}" class="btn btn-success">
                                             <i class="fa fa-edit"></i>
@@ -86,9 +89,9 @@
                                         @if($auth->hasPermission('app.product.posts.destroy'))
 
                                         <button class="btn btn-danger waves effect" type="button"
-                                            onclick="deletepost$post({{ $post->id}})" >
+                                            onclick="deletepost$post({{$post->id}})" >
                                             <i class="fa fa-trash"></i>
-                                            </button>
+                                        </button>
                                             <form id="deleteform-{{$post->id}}" action="{{route('admin.products.destroy',$post->id)}}" method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
@@ -101,6 +104,7 @@
 
 								</tbody>
 							</table>
+                            {{ $posts->links('vendor.pagination.custom') }}
 						</div>
 					</div>
 				</div>

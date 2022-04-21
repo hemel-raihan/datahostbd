@@ -53,9 +53,7 @@ class CategoryController extends Controller
         Gate::authorize('app.product.categories.create');
         $this->validate($request,[
             'name' => 'required|unique:productcategories',
-            'image' => 'required|mimes:png,jpg,jpeg,bmp|max:1024',
-            'leftsidebar_id' => 'required',
-            'rightsidebar_id' => 'required',
+            'image' => 'mimes:png,jpg,jpeg,bmp|max:1024',
 
         ]);
 
@@ -77,6 +75,10 @@ class CategoryController extends Controller
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
+        }
+        else
+        {
+            $imagename = null;
         }
 
         if(!$request->parent_id)
@@ -174,9 +176,6 @@ class CategoryController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'image' => 'mimes:png,jpg,jpeg,bmp|max:1024',
-            'leftsidebar_id' => 'required',
-            'rightsidebar_id' => 'required',
-
         ]);
 
         //get form image

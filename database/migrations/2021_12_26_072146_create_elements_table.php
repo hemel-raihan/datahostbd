@@ -29,12 +29,14 @@ class CreateElementsTable extends Migration
             $table->string('img_width')->nullable();
             $table->string('img_height')->nullable();
             $table->string('img_margin')->nullable();
-            $table->string('margin_amt')->nullable();
+            $table->string('margin_top')->nullable();
+            $table->string('margin_bottom')->nullable();
             $table->string('img_topmargin')->nullable();
             $table->string('topmargin_amt')->nullable();
             $table->text('body')->nullable();
             $table->boolean('status')->nullable();
             $table->boolean('title_show')->nullable();
+            $table->string('title_color')->nullable();
             $table->timestamps();
         });
     }

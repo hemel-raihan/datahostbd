@@ -22,9 +22,9 @@
 
                                     <div class="widget clearfix">
 
-                                        @php
+                                        {{-- @php
                                         $setting  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
-                                        @endphp
+                                        @endphp --}}
                                         @isset($setting)
                                         <img width="200" src="{{asset('uploads/settings/'.$setting->logo)}}" alt="Image" class="footer-logo">
                                         @endisset
@@ -285,9 +285,9 @@
 
                             <div class="widget clearfix">
 
-                                @php
+                                {{-- @php
                                 $setting  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
-                                @endphp
+                                @endphp --}}
                                 @isset($setting)
                                 <img width="200" src="{{asset('uploads/settings/'.$setting->logo)}}" alt="Image" class="footer-logo">
                                 @endisset

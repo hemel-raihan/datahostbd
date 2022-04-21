@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin\Page;
 use Illuminate\Http\Request;
 use App\Models\blog\category;
+use App\Models\Product\Product;
 use App\Models\Service\Service;
 use App\Models\Teams\Teamcategory;
 use App\Models\Frontmenu\Frontmenuitem;
@@ -16,11 +17,12 @@ class PageController extends Controller
 
     public function index($slug)
     {
-        $contentcategory = Contentcategory::all();
-        $teamcategory = Teamcategory::all();
-        $blogcategory = category::all();
-        $pages = Page::all();
-        $services = Service::all();
+        $contentcategory = Contentcategory::get('id');
+        $teamcategory = Teamcategory::get('id');
+        $blogcategory = category::get('id');
+        $pages = Page::get('id');
+        $services = Service::get('id');
+        $products = Product::get('id');
 
         $menuitem = Frontmenuitem::where('slug',$slug)->firstOrFail();
 
@@ -61,6 +63,18 @@ class PageController extends Controller
                 //$blogposts = $servicc->posts()->get();
                 Artisan::call('cache:clear');
                 return view('frontend_theme.corporate.default-page',compact('servicc'));
+            }
+
+        }
+
+        $productid = $menuitem->product_id;
+        foreach($products  as $product)
+        {
+            if($product->id == $productid)
+            {
+                $productt = Product::where('id',$productid)->firstOrFail();
+                Artisan::call('cache:clear');
+                return view('frontend_theme.corporate.default-page',compact('productt'));
             }
 
         }

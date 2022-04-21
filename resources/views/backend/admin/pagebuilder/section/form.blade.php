@@ -316,19 +316,26 @@ input[type="radio"][id^="cb"] {
                   </div>
 
 
+                  @isset($pagebuilder)
+                  <input type="radio" name="link" {{$pagebuilder->background_img != null ? 'checked' : ''}}  id="test2">
+                  <label for="css">Background Image</label>
+                  <input type="radio" name="link" {{$pagebuilder->background_color != null ? 'checked' : ''}}  id="test1">
+                  <label for="html">Background Color</label>
+
+                  @else
+                  <input type="radio" name="link" checked id="test2">
+                  <label for="css">Background Image</label>
+                  <input type="radio" name="link"  id="test1">
+                  <label for="html">Background Color</label>
+
+                  @endisset
 
 
 
-
-
-                {{-- <input type="radio" name="link" id="test2">
-                <p for="test2">Background Image</p>
-                <input type="radio" name="link" id="test1">
-                <p for="test1">Background Color</p> --}}
-                    <input type="radio" name="link" id="test2">
+                    {{-- <input type="radio" name="link" id="test2">
                     <label for="css">Background Image</label>
                     <input type="radio" name="link" id="test1">
-                    <label for="html">Background Color</label>
+                    <label for="html">Background Color</label> --}}
 
 
                 <div class="form-group background_img" style="display:none">
@@ -511,6 +518,21 @@ input[type="radio"][id^="cb"] {
         });
     });
 </script>
+
+@isset($pagebuilder)
+<script>
+    if(document.getElementById('test2').checked)
+        {
+            $("div.background_color").hide();
+            $("div.background_img").show();
+        }
+        else if(document.getElementById('test1').checked)
+        {
+            $("div.background_color").show();
+            $("div.background_img").hide();
+        }
+</script>
+@endisset
 
 
 <script>

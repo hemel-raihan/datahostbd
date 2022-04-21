@@ -36,13 +36,14 @@
 		============================================= -->
 
 
+
             @php
             $menus = \App\Models\Frontmenu\Frontmenu::with('menuItems')->where([['type','=','main-menu'],['status','=',true]])->first();
             // foreach($menus as $menu)
             // {
             //     $menuitems = $menu->menuItems;
             // }
-            $menuitems = $menus->menuItems;
+            $menuitems = $menus->menuItems()->with('childs')->get();
             @endphp
 
             @isset($menus)
@@ -53,7 +54,7 @@
             @endisset
 
 
-		</header>
+
 
         {{-- ........header end........ --}}
 
@@ -88,7 +89,7 @@
                                     <section id="content" style="background-image: url('{{asset('uploads/custompagephoto/'.$page->background_img)}}'); background: {{$page->background_img}}; margin-left: {{$page->left_margin}}; margin-right: {{$page->right_margin}};">
                                         <div class="content-wrap">
                                            <div class=" clearfix">
-                                                <div class="row gutter-40 col-mb-80">
+                                                {{-- <div class="row gutter-40 col-mb-80"> --}}
                                                     @if(!$page->leftsidebar_id == 0)
                                                     @php
                                                     $sidebars = \App\Models\Admin\Sidebar::where([['type','=','Left Side Bar'],['id','=',$page->leftsidebar_id]])->get();
@@ -119,7 +120,7 @@
                                                     @include('frontend_theme.corporate.front_layout.vertical.right_sidebar',['widgets'=>$widgets])
                                                     @endisset
                                                     @endif
-                                                </div>
+                                                {{-- </div> --}}
                                             </div>
                                         </div>
                                     </section>
@@ -142,7 +143,7 @@
         $footer_menus = \App\Models\Frontmenu\Frontmenu::where([['type','=','footer-menu'],['status','=',true]])->get();
         foreach($footer_menus as $footer_menu)
         {
-            $footer_menuitems = $footer_menu->menuItems()->get();
+            $footer_menuitems = $footer_menu->menuItems()->with('childs')->get();
         }
         @endphp
         @isset($footer_menuitems)

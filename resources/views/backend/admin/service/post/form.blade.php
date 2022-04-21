@@ -168,6 +168,14 @@
 						</div>
 					</div>
 
+
+                    <div class="form-group">
+						<label for="exampleInputContent">Excerpt (it will show in home pages service item short details.)</label>
+                        <textarea name="excerpt" class="my-editor form-control" id="excerpt" style="height: 200px;" cols="30" rows="10">{!!$service->excerpt ?? old('excerpt')!!}</textarea>
+					</div>
+
+
+
                     <div class="form-group">
                         <label for="exampleInputname">Meta Title</label>
                         <input type="text" class="form-control" value="{{isset($service->meta_title) ? old('meta_title') : ''}}" name="meta_title" id="">

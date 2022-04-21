@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
         Gate::authorize('app.dashboard');
         Artisan::call('cache:clear');
-      
+        
         return view('backend.admin.dashboard');
     }
     public function author()

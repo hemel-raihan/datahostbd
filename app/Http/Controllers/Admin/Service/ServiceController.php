@@ -24,7 +24,7 @@ class ServiceController extends Controller
     {
         Gate::authorize('app.service.posts.self');
         $auth = Auth::guard('admin')->user();
-        $posts = Service::latest()->get();
+        $posts = Service::with('servicecategories')->latest()->get();
         return view('backend.admin.service.post.index',compact('posts','auth'));
     }
 
@@ -36,10 +36,10 @@ class ServiceController extends Controller
     public function create()
     {
         Gate::authorize('app.service.posts.create');
-        $categories = Servicecategory::where('parent_id', '=', 0)->get();
-        $subcat = Servicecategory::all();
-        $sidebars = Sidebar::all();
-        return view('backend.admin.service.post.form',compact('categories','subcat','sidebars'));
+        $categories = Servicecategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        // $subcat = Servicecategory::all();
+        // $sidebars = Sidebar::all();
+        return view('backend.admin.service.post.form',compact('categories'));
     }
 
     /**
@@ -55,7 +55,6 @@ class ServiceController extends Controller
                 'title' => 'required|unique:services',
                 'image' => 'max:1024',
                 'categories' => 'required',
-
             ]);
 
 
@@ -105,6 +104,7 @@ class ServiceController extends Controller
             'admin_id' => Auth::id(),
             'image' => $imagename,
             'body' => $request->body,
+            'excerpt' => $request->excerpt,
             'order' => $request->order,
             // 'leftsidebar_id' => $request->leftsidebar_id,
             // 'rightsidebar_id' => $request->rightsidebar_id,
@@ -166,10 +166,10 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         Gate::authorize('app.service.posts.edit');
-        $categories = Servicecategory::where('parent_id', '=', 0)->get();
-        $subcat = Servicecategory::all();
-        $editsidebars = Sidebar::all();
-        return view('backend.admin.service.post.form',compact('service','categories','subcat','editsidebars'));
+        $categories = Servicecategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        // $subcat = Servicecategory::all();
+        // $editsidebars = Sidebar::all();
+        return view('backend.admin.service.post.form',compact('service','categories'));
     }
 
     /**
@@ -243,6 +243,7 @@ class ServiceController extends Controller
             'admin_id' => Auth::id(),
             'image' => $imagename,
             'body' => $request->body,
+            'excerpt' => $request->excerpt,
             'order' => $request->order,
             // 'leftsidebar_id' => $request->leftsidebar_id,
             // 'rightsidebar_id' => $request->rightsidebar_id,

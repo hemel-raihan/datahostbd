@@ -20,6 +20,7 @@ class CreateServicesTable extends Migration
             $table->string('slug')->unique()->nullable();
             $table->string('image')->default('default.png')->nullable();
             $table->text('body')->nullable();
+            $table->text('excerpt')->nullable();
             $table->integer('view_count')->default(0);
             $table->boolean('status')->default(false);
             $table->boolean('is_approved')->default(false);

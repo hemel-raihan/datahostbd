@@ -3156,6 +3156,7 @@ html[xmlns] .slider-wrap {
 	position: absolute;
     /* margin-left: 280px; */
 	/* background-color: #FFF; */
+    background-color: rgba(0,0,0,.4) !important;
 	width: 100%;
 }
 
@@ -6764,6 +6765,17 @@ body:not(.device-touch) .grid-container {
 	background-color: #1ABC9C;
 	margin: 0;
 	font-weight: bold;
+}
+
+@media (max-width: 1215px) {
+    .wrap-form label
+    {
+        width: 100% !important;
+    }
+    .ttm-btn.ttm-btn-size-md {
+        margin-left: 45%;
+    }
+
 }
 
 /* @media (max-width: 576px) { */

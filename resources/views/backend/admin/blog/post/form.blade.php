@@ -440,7 +440,7 @@
 
                     <div class="form-group">
 						<label class="form-label">File</label>
-						<input type="file" name="files" class="dropify" data-default-file="{{ isset($post) ? asset('uploads/files/'.$post->files) : ''}}" data-bs-height="180"  />
+						<input type="file" name="files" data-height="100" class="dropify" data-default-file="{{ isset($post) ? asset('uploads/files/'.$post->files) : ''}}" data-bs-height="180"  />
 					</div>
 
 

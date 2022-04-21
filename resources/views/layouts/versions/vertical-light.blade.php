@@ -7,11 +7,13 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="description" content="Kodepress designed by Datahostit">
 		<meta name="author" content="Datahost It">
-		<meta name="keywords" content="admin, admin dashboard template, bootstrap 5, dashboard, laravel, laravel admin, laravel admin panel, laravel admin template, laravel blade, laravel dashboard, laravel dashboard template, laravel mvc, laravel php, laravel ui template, ui kit">
+		<meta name="keywords" content="admin, CMS, bootstrap 5, dashboard, laravel, laravel admin, laravel admin panel, laravel admin template, laravel blade, laravel dashboard, laravel dashboard template, laravel mvc, laravel php, laravel ui template, ui kit">
 
         <!-- TITLE -->
         <title>Admin Dashboard</title>
-
+        @php
+        $setting  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
+        @endphp
         @include('layouts.vertical.styles')
         @FilemanagerScript
 
@@ -20,9 +22,7 @@
 	<body class="app sidebar-mini">
 
 		<!-- GLOBAL-LOADER -->
-        @php
-        $setting  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
-        @endphp
+
 
         @isset($setting)
         @if ($setting->preloader_status == 1)

@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
         Gate::authorize('app.price.categories.self');
-        $categories = Pricecategory::paginate(2);
+        $categories = Pricecategory::paginate(5);
         $auth = Auth::guard('admin')->user();
         return view('backend.admin.pricing_table.category.index',compact('categories','auth'));
     }
@@ -34,9 +34,9 @@ class CategoryController extends Controller
     public function create()
     {
         Gate::authorize('app.price.categories.create');
-        $categories = Pricecategory::where('parent_id', '=', 0)->get();
-        $subcat = Pricecategory::all();
-        return view('backend.admin.pricing_table.category.form',compact('categories','subcat'));
+        $categories = Pricecategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        //$subcat = Pricecategory::all();
+        return view('backend.admin.pricing_table.category.form',compact('categories'));
     }
 
     /**
@@ -50,7 +50,7 @@ class CategoryController extends Controller
         Gate::authorize('app.price.categories.create');
         $this->validate($request,[
             'name' => 'required|unique:pricecategories',
-            'image' => 'required|mimes:png,jpg,jpeg,bmp|max:1024',
+            'image' => 'mimes:png,jpg,jpeg,bmp|max:1024',
         ]);
 
 
@@ -67,6 +67,10 @@ class CategoryController extends Controller
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
+        }
+        else
+        {
+            $imagename = null;
         }
 
         if(!$request->parent_id)
@@ -144,9 +148,9 @@ class CategoryController extends Controller
     public function edit(Pricecategory $pricecategory)
     {
         Gate::authorize('app.price.categories.edit');
-        $categories = Pricecategory::where('parent_id', '=', 0)->get();
-        $subcat = Pricecategory::all();
-        return view('backend.admin.pricing_table.category.form',compact('servicecategory','categories','subcat'));
+        $categories = Pricecategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        //$subcat = Pricecategory::all();
+        return view('backend.admin.pricing_table.category.form',compact('servicecategory','categories'));
     }
 
     /**

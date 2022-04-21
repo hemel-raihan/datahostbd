@@ -142,6 +142,7 @@
                         <option value="Portfolio Post" {{($element->module_type == 'Portfolio Post') ? 'selected' : ''}} >Portfolio Post</option>
                         <option value="Price-Table Category" {{($element->module_type == 'Price-Table Category') ? 'selected' : ''}} >Price-Table Category</option>
                         <option value="Price-Table Post" {{($element->module_type == 'Price-Table Post') ? 'selected' : ''}} >Price-Table Post</option>
+                        <option value="Client List" {{($element->module_type == 'Client List') ? 'selected' : ''}} >Client List</option>
 					</select>
                     @else
                     <label class="form-label" for="type">Select Module Type</label>
@@ -165,6 +166,7 @@
                         <option value="Portfolio Post">Portfolio Post</option>
                         <option value="Price-Table Category">Price-Table Category</option>
                         <option value="Price-Table Post">Price-Table Post</option>
+                        <option value="Client List">Client List</option>
 					</select>
                     @endisset
 				</div>
@@ -287,7 +289,7 @@
                 </div>
 
 
-                {{-- <div id="job_category" style="display: none;">
+                <div id="job_category" style="display: none;">
                     <div class="form-group row" id="category">
                         <label class="col-md-3 col-from-label">Select Job Category<span class="text-danger">*</span></label>
                         @isset($job_editcategories)
@@ -310,7 +312,7 @@
                         </div>
                         @endisset
                     </div>
-                </div> --}}
+                </div>
 
 
 
@@ -459,6 +461,21 @@
 
                     @endisset
 
+                    <div class="form-group">
+                        <label for="exampleInputname">Title Color</label>
+                        <input type="text" class="form-control " value="{{$element->title_color ?? old('title_color')}}" name="title_color" id="" placeholder="ex: #fff">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputname">Margin Top</label>
+                        <input type="text" class="form-control " value="{{$element->margin_top ?? old('margin_top')}}" name="margin_top" id="" placeholder="ex: 50px, 100px,200px">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputname">Margin Bottom</label>
+                        <input type="text" class="form-control " value="{{$element->margin_bottom ?? old('margin_bottom')}}" name="margin_bottom" id="" placeholder="ex: 50px, 100px,200px">
+                    </div>
+
                     <div id="img_galleryimg" style="display: none;">
                         <div class="form-group">
                             <label class="form-label">Feature Image</label>
@@ -525,16 +542,29 @@
             $('#blog_category').show();
             $('#portfolio_width').show();
             $('#product_category').hide();
+            $('#job_category').hide();
+            $('#img_style').hide();
         }
         else if($('select[name="module_type"]').val() === 'Product_Category_post')
         {
             $('#blog_category').hide();
             $('#product_category').show();
+            $('#job_category').hide();
+            $('#img_style').hide();
+        }
+        else if($('select[name="module_type"]').val() === 'Job_Category_post')
+        {
+            $('#blog_category').hide();
+            $('#product_category').hide();
+            $('#job_category').show();
+            $('#img_style').hide();
         }
         else
         {
             $('#img_style').hide();
             $('#img_galleryimg').hide();
+            $('#product_category').hide();
+            $('#job_category').hide();
             $('#blog_category').hide();
             $('#portfolio_width').show();
         }

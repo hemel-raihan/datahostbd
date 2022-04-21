@@ -25,7 +25,7 @@ class ProductController extends Controller
         Gate::authorize('app.product.posts.self');
         //$posts = Auth::guard('admin')->user()->posts()->latest()->get();
         $auth = Auth::guard('admin')->user();
-        $posts = Product::with('admin')->latest()->get(['title','admin_id','id','unit_price']);
+        $posts = Product::with('productcategories')->latest()->paginate(5);
         return view('backend.admin.product.post.index',compact('posts','auth'));
     }
 
@@ -58,8 +58,6 @@ class ProductController extends Controller
                 'gallaryimage.*' => 'max:1024',
                 'files' => 'mimes:pdf',
                 'categories' => 'required',
-                'leftsidebar_id' => 'required',
-                'rightsidebar_id' => 'required',
             ]);
 
 
@@ -75,6 +73,7 @@ class ProductController extends Controller
             $postphotoPath = public_path('uploads/productphoto');
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
+            //$img->save($postphotoPath.'/'.$imagename,60,'jpg');
 
         }
         else
@@ -309,8 +308,6 @@ class ProductController extends Controller
             'gallaryimage.*' => 'max:1024',
             'files' => 'mimes:pdf',
             'categories' => 'required',
-            'leftsidebar_id' => 'required',
-            'rightsidebar_id' => 'required',
         ]);
 
         //get form image
@@ -423,23 +420,23 @@ class ProductController extends Controller
             $is_approved = true;
         }
 
-        if(!$request->youtube_link)
-        {
-            $youtube = null;
-        }
-        else
-        {
-            $youtube = $request->youtube_link;
-        }
+        // if(!$request->youtube_link)
+        // {
+        //     $youtube = null;
+        // }
+        // else
+        // {
+        //     $youtube = $request->youtube_link;
+        // }
 
-        if(!$request->image)
-        {
-            $featureimg = null;
-        }
-        else
-        {
-            $featureimg = $imagename;
-        }
+        // if(!$request->image)
+        // {
+        //     $featureimg = null;
+        // }
+        // else
+        // {
+        //     $featureimg = $imagename;
+        // }
 
         $product->update([
             'title' => $request->title,
@@ -455,8 +452,8 @@ class ProductController extends Controller
             'discount_type' => $request->discount_type,
             'quantity' => $request->quantity,
             'sku' => $request->sku,
-            'image' => $featureimg,
-            'youtube_link' => $youtube,
+            'image' => $imagename,
+            'youtube_link' => $request->youtube_link,
             'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
             'desc' => $request->desc,

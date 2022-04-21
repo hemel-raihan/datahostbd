@@ -4,9 +4,9 @@
 						<div class="d-flex">
 							<a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
 							<a class="header-brand1 d-flex d-md-none" href="{{ url('index') }}">
-                                @php
+                                {{-- @php
                                 $setting  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
-                                @endphp
+                                @endphp --}}
 								{{-- <img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img desktop-logo" alt="logo">
 								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img toggle-logo" alt="logo">
 								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img light-logo" alt="logo"> --}}

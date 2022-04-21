@@ -22,7 +22,7 @@ class CategoryController extends Controller
     public function index()
     {
         Gate::authorize('app.service.categories.self');
-        $categories = Servicecategory::paginate(2);
+        $categories = Servicecategory::paginate(5);
         $auth = Auth::guard('admin')->user();
         return view('backend.admin.service.category.index',compact('categories','auth'));
     }
@@ -35,9 +35,9 @@ class CategoryController extends Controller
     public function create()
     {
         Gate::authorize('app.service.categories.create');
-        $categories = Servicecategory::where('parent_id', '=', 0)->get();
-        $subcat = Servicecategory::all();
-        return view('backend.admin.service.category.form',compact('categories','subcat'));
+        $categories = Servicecategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        //$subcat = Servicecategory::all();
+        return view('backend.admin.service.category.form',compact('categories'));
     }
 
     /**
@@ -51,7 +51,7 @@ class CategoryController extends Controller
         Gate::authorize('app.service.categories.create');
         $this->validate($request,[
             'name' => 'required|unique:servicecategories',
-            'image' => 'required|mimes:png,jpg,jpeg,bmp|max:1024',
+            'image' => 'mimes:png,jpg,jpeg,bmp|max:1024',
         ]);
 
 
@@ -68,6 +68,10 @@ class CategoryController extends Controller
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
+        }
+        else
+        {
+            $imagename = null;
         }
 
         if(!$request->parent_id)
@@ -144,9 +148,9 @@ class CategoryController extends Controller
     public function edit(Servicecategory $servicecategory)
     {
         Gate::authorize('app.service.categories.edit');
-        $categories = Servicecategory::where('parent_id', '=', 0)->get();
-        $subcat = Servicecategory::all();
-        return view('backend.admin.service.category.form',compact('servicecategory','categories','subcat'));
+        $categories = Servicecategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        //$subcat = Servicecategory::all();
+        return view('backend.admin.service.category.form',compact('servicecategory','categories'));
     }
 
     /**

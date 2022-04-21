@@ -192,20 +192,53 @@
                                           </div>
 
 
-                                          {{-- <p style="background: #f3f8fb;">
-                                            <a class="btn" data-bs-toggle="collapse" href="#collapseExample22" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                              Blog Posts
+                                          <p style="background: #f3f8fb;">
+                                            <a class="btn" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                              Product Categories
                                             </a>
                                           </p>
-                                          <div class="collapse" id="collapseExample22">
+                                          <div class="collapse" id="collapseExample4">
                                             <div class="card card-body">
                                                 <div class="transfer-double-list-content">
                                                     <div class="transfer-double-list-main">
                                                         <ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
-                                                            @foreach($posts as $key => $post)
+                                                            @foreach($productcategories as $key => $category)
                                                             <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
                                                                 <div class="checkbox-group">
-                                                                    <input type="checkbox" value="{{$post->title}}" data-src="{{$post->id}}" data-id="{{$post->slug}}" name="postbox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492754" /><label for="group_{{$key}}_1636878492754" class="group-name-1636878492754">{{$post->title}}</label>
+                                                                    <input type="checkbox" value="{{$category->name}}" data-src="{{$category->id}}" data-id="{{$category->slug}}" name="productcategorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_16368784927522" /><label for="group_{{$key}}_16368784927522" class="group-name-163687849275">{{$category->name}}</label>
+                                                                </div>
+                                                                @if($category->childrenRecursive->count()>0)
+
+
+                                                                @include('backend.admin.frontmenu.child_productcategories', ['sub_category' => $category])
+
+
+                                                                @endif
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <button id="add_productcategory" class="btn btn-primary">Add to Menu</button>
+                                            </div>
+                                          </div>
+
+
+                                          <p style="background: #f3f8fb;">
+                                            <a class="btn" data-bs-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                              Products
+                                            </a>
+                                          </p>
+                                          <div class="collapse" id="collapseExample6">
+                                            <div class="card card-body">
+                                                <div class="transfer-double-list-content">
+                                                    <div class="transfer-double-list-main">
+                                                        <ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
+                                                            @foreach($products as $key => $product)
+                                                            <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
+                                                                <div class="checkbox-group">
+                                                                    <input type="checkbox" value="{{$product->title}}" data-src="{{$product->id}}" data-id="{{$product->slug}}" name="productbox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_16368784927555" /><label for="group_{{$key}}_16368784927555" class="group-name-1636878492755">{{$product->title}}</label>
                                                                 </div>
                                                             </li>
                                                             @endforeach
@@ -213,9 +246,9 @@
                                                     </div>
                                                 </div>
 
-                                                <button id="add_post" class="btn btn-primary">Add to Menu</button>
+                                                <button id="add_products" class="btn btn-primary">Add to Menu</button>
                                             </div>
-                                          </div> --}}
+                                          </div>
 
 
                                           <p style="background: #f3f8fb;">
@@ -274,6 +307,32 @@
                                                 </div>
 
                                                 <button id="add_contentcategory" class="btn btn-primary">Add to Menu</button>
+                                            </div>
+                                          </div>
+
+
+                                          <p style="background: #f3f8fb;">
+                                            <a class="btn" data-bs-toggle="collapse" href="#collapseExample7" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                              Job Categories
+                                            </a>
+                                          </p>
+                                          <div class="collapse" id="collapseExample7">
+                                            <div class="card card-body">
+                                                <div class="transfer-double-list-content">
+                                                    <div class="transfer-double-list-main">
+                                                        <ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
+                                                            @foreach($jobcategories as $key => $category)
+                                                            <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
+                                                                <div class="checkbox-group">
+                                                                    <input type="checkbox" value="{{$category->name}}" data-src="{{$category->id}}" data-id="{{$category->slug}}" name="jobcategorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_16368784927534" /><label for="group_{{$key}}_16368784927534" class="group-name-163687849275">{{$category->name}}</label>
+                                                                </div>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <button id="add_jobcategory" class="btn btn-primary">Add to Menu</button>
                                             </div>
                                           </div>
 
@@ -372,7 +431,7 @@
                                             <label style="margin-left: 20px;" for="exampleInputname">Menu URL :</label>
                                             <input style="margin-left: 20px; width: 80%;" type="text" class="form-control" value="" name="slug" id="slug" placeholder="Menu Slug">
 
-                                            <button style="width: 20%; margin-left: 40%; " type="submit"  class="btn btn-success mt-5 mb-5">Edit</button>
+                                            <button style="width: 20%; margin-left: 40%; " type="submit"  class="btn btn-success mt-5 mb-5">Update</button>
                                         </div>
                                     </div>
                             </div>
@@ -388,7 +447,7 @@
                                             @csrf
 										<div class="dd">
 											<ol id="dd_handle" class="dd-list">
-												@forelse ($menu->menuItems as $item)
+												@forelse ($menu->menuItems()->withCount('childs')->get() as $item)
 													<li class="dd-item" data-id="{{$item->id}}">
                                                         <div class="pull-right item_actions">
                                                             {{-- <a href="{{route('admin.menuitem.edit',['id'=>$menu->id,'menuId'=>$item->id])}}" class="btn btn-success">
@@ -425,8 +484,8 @@
                                                         </div>
 
                                                         {{-- @if(!$item->childs->isEmpty()) --}}
-                                                        @if($item->childs->count()>0)
-                                                        @include('backend.admin.frontmenu.child', ['itemm' => $item])
+                                                        @if($item->childs_count >0)
+                                                        @include('backend.admin.frontmenu.child', ['item' => $item])
                                                         @endif
                                                         {{-- @endif --}}
 
@@ -746,6 +805,27 @@ for (var i=0, n=categoryboxes.length;i<n;i++)
 });
 
 
+$('#add_productcategory').click(function(){
+
+var productcategoryboxes = document.getElementsByName('productcategorybox[]');
+
+for (var i=0, n=productcategoryboxes.length;i<n;i++)
+{
+    if (productcategoryboxes[i].checked)
+    {
+        $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
+                                                                <i class="fa fa-trash"></i>
+                                                            </a></div><div class="dd-handle"><span>`+productcategoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+productcategoryboxes[i].value+`"> <input type="hidden" name="id[]" value="`+productcategoryboxes[i].getAttribute('data-src')+`"> <input type="hidden" name="slug[]" value="`+productcategoryboxes[i].getAttribute('data-id')+`"> </div></li>`);
+
+                                                            iziToast.success({
+                title: 'Success',
+                message: 'Successfully add menu in the list',
+            });
+    }
+}
+});
+
+
 $('#add_contentcategory').click(function(){
 
 var contentcategoryboxes = document.getElementsByName('contentcategorybox[]');
@@ -771,6 +851,27 @@ for (var i=0, n=contentcategoryboxes.length;i<n;i++)
 });
 
 
+$('#add_jobcategory').click(function(){
+
+var jobcategoryboxes = document.getElementsByName('jobcategorybox[]');
+for (var i=0, n=jobcategoryboxes.length;i<n;i++)
+{
+    if (jobcategoryboxes[i].checked)
+    {
+
+        $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
+                                                                <i class="fa fa-trash"></i>
+                                                            </a></div><div class="dd-handle"><span>`+jobcategoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+jobcategoryboxes[i].value+`"> <input type="hidden" name="id[]" value="`+jobcategoryboxes[i].getAttribute('data-src')+`"> <input type="hidden" name="slug[]" value="`+jobcategoryboxes[i].getAttribute('data-id')+`"> </div></li>`);
+
+                iziToast.success({
+                title: 'Success',
+                message: 'Successfully add menu in the list',
+            });
+    }
+}
+});
+
+
 $('#add_teamcategory').click(function(){
 
 var teamcategoryboxes = document.getElementsByName('teamcategorybox[]');
@@ -782,6 +883,27 @@ for (var i=0, n=teamcategoryboxes.length;i<n;i++)
         $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
                                                                 <i class="fa fa-trash"></i>
                                                             </a></div><div class="dd-handle"><span>`+teamcategoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+teamcategoryboxes[i].value+`"> <input type="hidden" name="id[]" value="`+teamcategoryboxes[i].getAttribute('data-src')+`"> <input type="hidden" name="slug[]" value="`+teamcategoryboxes[i].getAttribute('data-id')+`"> </div></li>`);
+
+                                                            iziToast.success({
+                title: 'Success',
+                message: 'Successfully add menu in the list',
+            });
+    }
+}
+});
+
+
+$('#add_products').click(function(){
+
+var productboxes = document.getElementsByName('productbox[]');
+for (var i=0, n=productboxes.length;i<n;i++)
+{
+    if (productboxes[i].checked)
+    {
+
+        $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
+                                                                <i class="fa fa-trash"></i>
+                                                            </a></div><div class="dd-handle"><span>`+productboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+productboxes[i].value+`"> <input type="hidden" name="id[]" value="`+productboxes[i].getAttribute('data-src')+`"> <input type="hidden" name="slug[]" value="`+productboxes[i].getAttribute('data-id')+`"> </div></li>`);
 
                                                             iziToast.success({
                 title: 'Success',

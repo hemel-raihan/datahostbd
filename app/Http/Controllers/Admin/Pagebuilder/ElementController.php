@@ -111,12 +111,14 @@ class ElementController extends Controller
             'img_width' => $request->img_width,
             'img_height' => $request->img_height,
             'img_margin' => $request->img_margin,
-            'margin_amt' => $request->margin_amt,
+            'margin_top' => $request->margin_top,
+            'margin_bottom' => $request->margin_bottom,
             'img_topmargin' => $request->img_topmargin,
             'topmargin_amt' => $request->topmargin_amt,
             'body' => $request->body,
             'status' => $status,
             'title_show' => $title_show,
+            'title_color' => $request->title_color,
 
 
         ]);
@@ -131,8 +133,8 @@ class ElementController extends Controller
         $element = $page->elements()->findOrFail($elementId);
         $editcategories = category::withCount('posts')->get(['id']);
         $product_editcategories = Productcategory::withCount('products')->get(['id']);
-        //$job_editcategories = Jobcategory::withCount('jobs')->get(['id']);
-        return view('backend.admin.pagebuilder.element.form',compact('page','auth','element','editcategories','product_editcategories'));
+        $job_editcategories = Jobcategory::withCount('jobs')->get(['id']);
+        return view('backend.admin.pagebuilder.element.form',compact('page','auth','element','editcategories','product_editcategories','job_editcategories'));
     }
 
     public function update(Request $request,$id,$elementId)
@@ -237,12 +239,14 @@ class ElementController extends Controller
             'img_width' => $request->img_width,
             'img_height' => $request->img_height,
             'img_margin' => $request->img_margin,
-            'margin_amt' => $request->margin_amt,
+            'margin_top' => $request->margin_top,
+            'margin_bottom' => $request->margin_bottom,
             'img_topmargin' => $request->img_topmargin,
             'topmargin_amt' => $request->topmargin_amt,
             'body' => $request->body,
             'status' => $status,
             'title_show' => $title_show,
+            'title_color' => $request->title_color,
         ]);
 
         notify()->success('Element Updated','Update');

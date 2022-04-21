@@ -20,9 +20,13 @@ class CreateFrontmenuitemsTable extends Migration
             $table->string('type')->nullable();
             $table->integer('parent_id')->nullable()->default(0);
             $table->integer('page_id')->nullable();
+            $table->integer('service_id')->nullable();
             $table->integer('contentcategory_id')->nullable();
             $table->integer('blogcategory_id')->nullable();
+            $table->integer('product_category_id')->nullable();
+            $table->integer('product_id')->nullable();
             $table->integer('teamcategory_id')->nullable();
+            $table->integer('jobcategory_id')->nullable();
             $table->integer('order')->nullable();
             $table->string('title')->nullable();
             $table->string('divider_title')->nullable();

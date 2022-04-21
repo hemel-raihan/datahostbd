@@ -7,13 +7,16 @@ use App\Models\Admin\Page;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\blog\category;
+use App\Models\Product\Product;
 use App\Models\Service\Service;
+use App\Models\Career\Jobcategory;
 use App\Models\Teams\Teamcategory;
 use App\Models\Frontmenu\Frontmenu;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Frontmenu\Frontmenuitem;
+use App\Models\Product\Productcategory;
 use App\Models\general_content\Contentcategory;
 
 class MenuitemController extends Controller
@@ -24,12 +27,14 @@ class MenuitemController extends Controller
         $menu = Frontmenu::with('menuItems')->findOrFail($id);
         $auth = Auth::guard('admin')->user();
         $pages = Page::all();
-        $categories = category::where('parent_id', '=', 0)->get();
-        $posts = Post::all();
+        $categories = category::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        $productcategories = Productcategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
+        $products = Product::all();
         $services = Service::all();
-        $contentcategories = Contentcategory::where('parent_id', '=', 0)->get();
+        $jobcategories = Jobcategory::all();
+        $contentcategories = Contentcategory::with('childrenRecursive')->where('parent_id', '=', 0)->get();
         $teamcategories = Teamcategory::where('parent_id', '=', 0)->get();
-        return view('backend.admin.frontmenu.builder',compact('menu','auth','pages','categories','posts','services','contentcategories','teamcategories'));
+        return view('backend.admin.frontmenu.builder',compact('menu','auth','pages','categories','services','contentcategories','teamcategories','productcategories','products','jobcategories'));
     }
 
     // public function show()
@@ -57,8 +62,12 @@ class MenuitemController extends Controller
 
         $contentcategory_id = null;
         $blogcategory_id = null;
+        $productcategory_id = null;
+        $product_id = null;
         $page_id = null;
         $service_id = null;
+        $jobcategory_id = null;
+
         // foreach($request->input('slug') as $key => $value) {
         //     $slug = $request->input('slug')[$key];
 
@@ -144,6 +153,26 @@ class MenuitemController extends Controller
                 $blogcategory_id = null;
             }
 
+            if(Productcategory::where('slug','=',$slugg)->count() > 0)
+            {
+                $productcategory = Productcategory::where('slug','=',$slugg)->first();
+
+                $productcategory_id = $productcategory->id;
+            }
+            else{
+                $productcategory_id = null;
+            }
+
+            if(Product::where('slug','=',$slugg)->count() > 0)
+            {
+                $product = Product::where('slug','=',$slugg)->first();
+
+                $product_id = $product->id;
+            }
+            else{
+                $product_id = null;
+            }
+
 
             if(Contentcategory::where('slug','=',$slugg)->count() > 0)
             {
@@ -154,6 +183,8 @@ class MenuitemController extends Controller
             else{
                 $contentcategory_id = null;
             }
+
+
 
             if(Page::where('slug','=',$slugg)->count() > 0)
             {
@@ -173,6 +204,17 @@ class MenuitemController extends Controller
             else
             {
                 $service_id = null;
+            }
+
+
+            if(Jobcategory::where('slug','=',$slugg)->count() > 0)
+            {
+                $jobcategory = Jobcategory::where('slug','=',$slugg)->first();
+
+                $jobcategory_id = $jobcategory->id;
+            }
+            else{
+                $jobcategory_id = null;
             }
 
 
@@ -209,8 +251,11 @@ class MenuitemController extends Controller
             'slug' => $slugg,
             'contentcategory_id' => $contentcategory_id,
             'blogcategory_id' => $blogcategory_id,
+            'product_category_id' => $productcategory_id,
+            'product_id' => $product_id,
             'page_id' => $page_id,
             'service_id' => $service_id,
+            'jobcategory_id' => $jobcategory_id,
         ]);
         }
 

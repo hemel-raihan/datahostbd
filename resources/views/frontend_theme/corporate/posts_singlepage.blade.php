@@ -136,7 +136,6 @@
                     {{-- </div><!-- .portfolio-single-content end --> --}}
 
 
-                 <div class="divider divider-center"><i class="icon-circle"></i></div>
 
                  @isset($servicecategoryposts)
                  <h4>Related Projects:</h4>

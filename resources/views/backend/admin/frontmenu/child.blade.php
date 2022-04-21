@@ -1,5 +1,5 @@
 <ol class="dd-list">
-    @foreach($itemm->childs as $childItem)
+    @foreach($item->childs()->with('childs')->get() as $childItem)
 <li class="dd-item" data-id="{{$childItem->id}}">
 
 <div class="pull-right item_actions">
@@ -32,8 +32,8 @@
         @endif
     </div>
 
-    @if($itemm->childs->count()>0)
-    @include('backend.admin.frontmenu.child', ['itemm' => $childItem])
+    @if($childItem->childs->count()>0)
+    @include('backend.admin.frontmenu.child', ['item' => $childItem])
     @endif
 
 </li>

@@ -176,7 +176,7 @@
 
                     <div class="form-group">
 						<label for="exampleInputname">Unit Price</label>
-						<input type="text" class="form-control" value="{{isset($product->unit_price) ?? old('unit_price') }}" name="unit_price" id="">
+						<input type="text" class="form-control" value="{{$product->unit_price ?? old('unit_price')}}" name="unit_price" id="">
 					</div>
 
                     {{-- <div class="form-group">

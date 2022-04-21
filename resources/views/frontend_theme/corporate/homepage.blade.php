@@ -29,12 +29,12 @@
             @endif
 
 
-            <div class="row">
+            <div class="row" style="margin-top: {{$pagebuilder->margin}};">
                 @foreach ($pagebuilder->elements as $key => $element)
                 @if ($pagebuilder->layout == 'One Column')
-                <div class="col-md-12" style=" margin-top: 40px;">
+                <div class="col-md-12" style="margin-top: {{$element->margin_top}}; margin-bottom: {{$element->margin_bottom}};">
                 @elseif ($pagebuilder->layout == 'Two Column')
-                <div class="col-md-6">
+                <div class="col-md-6" style="margin-top: {{$element->margin_top}}; margin-bottom: {{$element->margin_bottom}};">
                 @elseif ($pagebuilder->layout == 'Three Column')
                 <div class="col-md-4" style="border: 3px solid rgb(224, 224, 224); padding:10px; margin-top: 25px;">
                 @elseif ($pagebuilder->layout == 'One/Two Column')
@@ -51,10 +51,14 @@
                         <div class="{{($element->container == 'container-sm') ? 'container-sm' : '' }}">
 
                         @if($element->module_type == 'Blog Post')
+                        @php
+                            $blogposts = App\Models\blog\Post::all()->take($element->post_qty);
+                        @endphp
+
                         @if ($element->title)
                         @if ($element->title_show == 1)
                         <div class="heading-block">
-                            <h2>{{$element->title}}</h2>
+                            <h2 style="color: {{$element->title_color}};">{{$element->title}}</h2>
                         </div>
                         @endif
                         @endif
@@ -103,7 +107,7 @@
                         @if ($element->title)
                         @if ($element->title_show == 1)
                         <div class="heading-block">
-                            <h4>{{$element->title}}</h4>
+                            <h4 style="color: {{$element->title_color}};">{{$element->title}}</h4>
                         </div>
                         @endif
                         @endif
@@ -164,10 +168,14 @@
                     </br>
 
                         @elseif($element->module_type == 'Blog Category')
+                        @php
+                            $blogcategories = App\Models\blog\category::all()->take($element->post_qty);
+                        @endphp
+
                         @if ($element->title)
                         @if ($element->title_show == 1)
                         <div class="heading-block">
-                            <h2>{{$element->title}}</h2>
+                            <h2 style="color: {{$element->title_color}};">{{$element->title}}</h2>
                         </div>
                         @endif
                         @endif
@@ -189,10 +197,14 @@
 
 
                         @elseif($element->module_type == 'Product Post')
+                        @php
+                            $productposts = App\Models\Product\Product::all()->take($element->post_qty);
+                        @endphp
+
                         @if ($element->title)
                         @if ($element->title_show == 1)
                         <div class="heading-block">
-                            <h2>{{$element->title}}</h2>
+                            <h2 style="color: {{$element->title_color}};">{{$element->title}}</h2>
                         </div>
                         @endif
                         @endif
@@ -251,7 +263,7 @@
                         @if ($element->title)
                         @if ($element->title_show == 1)
                         <div class="heading-block">
-                            <h4>{{$element->title}}</h4>
+                            <h4 style="color: {{$element->title_color}};">{{$element->title}}</h4>
                         </div>
                         @endif
                         @endif
@@ -312,6 +324,10 @@
 
 
                         @elseif ($element->module_type == 'General Post')
+                        @php
+                            $generalposts = App\Models\general_content\Contentpost::all()->take($element->post_qty);
+                        @endphp
+
                         @isset($generalposts)
                         @foreach ($generalposts as $generalpost)
                         <div class="col-sm-6 col-lg-{{($element->layout == 'One Column') ? 12 : (($element->layout == 'Two Column') ? 6 : (($element->layout == 'Three Column') ? 4 : 3)) }}">
@@ -348,10 +364,14 @@
                         @endisset
 
                         @elseif($element->module_type == 'General Category')
+                        @php
+                            $generalcategories = App\Models\general_content\Contentcategory::all()->take($element->post_qty);
+                        @endphp
+
                         @if ($element->title)
                         @if ($element->title_show == 1)
                         <div class="heading-block">
-                            <h2>{{$element->title}}</h2>
+                            <h2 style="color: {{$element->title_color}};">{{$element->title}}</h2>
                         </div>
                         @endif
                         @endif
@@ -372,8 +392,51 @@
                         @endforeach
                         @endisset
 
+                        @elseif($element->module_type == 'Service Post')
+                        @php
+                            $serviceposts = App\Models\Service\Service::all()->take($element->post_qty);
+                        @endphp
+
+                        @if ($element->title)
+                        @if ($element->title_show == 1)
+                        <div class="heading-block">
+                            <h2 style="color: {{$element->title_color}};">{{$element->title}}</h2>
+                        </div>
+                        @endif
+                        @endif
+
+                        @isset($serviceposts)
+                            <div id="oc-portfolio" class="owl-carousel portfolio-carousel carousel-widget" data-margin="20" data-pagi="true" data-autoplay="10000" data-items-xs="1" data-items-sm="1" data-items-md="3" data-items-xl="{{($element->layout == 'One Column') ? 1 : (($element->layout == 'Two Column') ? 2 : (($element->layout == 'Three Column') ? 3 : 4)) }}">
+                                @foreach ($serviceposts as $servicepost)
+                                <div class="portfolio-item">
+                                    <div class="portfolio-image" style="width: {{$element->portfolio_width}}%;">
+                                        <a href="{{route('service.details',$servicepost->slug)}}">
+                                            <img src="{{asset('uploads/servicephoto/'.$servicepost->image)}}" alt="Open Imagination">
+                                        </a>
+                                    </div>
+                                    <div class="centered d-flex align-items-center justify-content-center"><a href="{{route('service.details',$servicepost->slug)}}" style="color: #000; font-size: 24px;">{{$servicepost->title}}</a></div>
+                                    <div class="portfolio-desc">
+                                        <p>{{$servicepost->excerpt}}</p>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        @endisset
+
 
                         @elseif($element->module_type == 'Service Category')
+                        @php
+                            $servicecategories = App\Models\Service\Servicecategory::all()->take($element->post_qty);
+                        @endphp
+
+                        @if ($element->title)
+                        @if ($element->title_show == 1)
+                        <div class="heading-block">
+                            <h2 style="color: {{$element->title_color}};">{{$element->title}}</h2>
+                        </div>
+                        @endif
+                        @endif
+
                         @isset($servicecategories)
                         @foreach ($servicecategories as $servicecategory)
                         <div class="col-sm-6 col-lg-{{($element->layout == 'One Column') ? 12 : (($element->layout == 'Two Column') ? 6 : (($element->layout == 'Three Column') ? 4 : 3)) }}">
@@ -391,30 +454,54 @@
                         @endisset
 
 
-                        @elseif($element->module_type == 'Service Post')
-                        @isset($serviceposts)
-                            <div id="oc-portfolio" class="owl-carousel portfolio-carousel carousel-widget" data-margin="20" data-pagi="false" data-autoplay="5000" data-items-xs="1" data-items-sm="1" data-items-md="3" data-items-xl="{{($element->layout == 'One Column') ? 1 : (($element->layout == 'Two Column') ? 2 : (($element->layout == 'Three Column') ? 3 : 4)) }}">
-                                @foreach ($serviceposts as $servicepost)
-                                <div class="portfolio-item">
-                                    <div class="portfolio-image" style="width: {{$element->portfolio_width}}%;">
-                                        <a href="{{route('service.details',$servicepost->id)}}">
-                                            <img src="{{asset('uploads/servicephoto/'.$servicepost->image)}}" alt="Open Imagination">
-                                        </a>
-                                    </div>
-                                    <div class="centered d-flex align-items-center justify-content-center"><a href="{{route('service.details',$servicepost->id)}}" style="color: #000; font-size: 24px;">{{$servicepost->title}}</a></div>
-                                    {{-- <div class="portfolio-desc">
-                                        <h3><a href="{{route('portfolio.posts',$portfoliocategory->id)}}">{{$post->title}}</a></h3>
-                                    </div> --}}
-                                </div>
-                                @endforeach
-                                </div>
-
-                        @endisset
 
 
                         @elseif($element->module_type == 'Price-Table Post')
+                        @php
+                            $priceposts = App\Models\Pricing_Table\Price::latest()->take($element->post_qty)->get();
+                        @endphp
+
+                        @if ($element->title)
+                        @if ($element->title_show == 1)
+                        <div class="heading-block">
+                            <h2 style="color: {{$element->title_color}};">{{$element->title}}</h2>
+                        </div>
+                        @endif
+                        @endif
+
                         @isset($priceposts)
-                        @foreach ($priceposts as $pricepost)
+                        <div id="oc-portfolio" class="owl-carousel portfolio-carousel carousel-widget" data-margin="20" data-pagi="true" data-autoplay="10000" data-items-xs="1" data-items-sm="1" data-items-md="3" data-items-xl="{{($element->layout == 'One Column') ? 1 : (($element->layout == 'Two Column') ? 2 : (($element->layout == 'Three Column') ? 3 : 4)) }}">
+                            @foreach ($priceposts as $pricepost)
+                            <div class="portfolio-item">
+                                <div class="pricing-box pricing-simple px-5 py-4 bg-light text-center text-md-start">
+                                    <div class="pricing-title">
+                                        {{-- <span class="text-danger">Most Popular</span> --}}
+                                        <h3>{{$pricepost->title}}</h3>
+                                    </div>
+                                    <div class="pricing-price">
+                                        <span class="price-unit">৳</span>{{$pricepost->price}}<span class="price-tenure">{{$pricepost->duration}}</span>
+                                    </div>
+                                    <div class="pricing-features">
+                                        {{-- <ul class="iconlist">
+                                            <li><i class="icon-check text-smaller"></i> <strong>Premium</strong> Plugins</li>
+                                            <li><i class="icon-check text-smaller"></i> <strong>SEO</strong> Features</li>
+                                            <li><i class="icon-check text-smaller"></i> <strong>Full</strong> Access</li>
+                                            <li><i class="icon-check text-smaller"></i> <strong>100</strong> User Accounts</li>
+                                            <li><i class="icon-check text-smaller"></i> <strong>1 Year</strong> License</li>
+                                            <li><i class="icon-check text-smaller"></i> <strong>24/7</strong> Support</li>
+                                        </ul> --}}
+                                        {!!$pricepost->body!!}
+                                    </div>
+                                    <div class="pricing-action">
+                                        <a href="#" class="btn btn-danger btn-lg">Get Started</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+
+                        {{-- @foreach ($priceposts as $pricepost)
+
                         <div class="col-sm-6 col-lg-{{($element->layout == 'One Column') ? 12 : (($element->layout == 'Two Column') ? 6 : (($element->layout == 'Three Column') ? 4 : 3)) }}">
 
 							<div class="pricing-box pricing-simple px-5 py-4 bg-light text-center text-md-start">
@@ -426,14 +513,14 @@
 									<span class="price-unit">&euro;</span>{{$pricepost->price}}<span class="price-tenure">{{$pricepost->duration}}</span>
 								</div>
 								<div class="pricing-features">
-									{{-- <ul class="iconlist">
+									<ul class="iconlist">
 										<li><i class="icon-check text-smaller"></i> <strong>Premium</strong> Plugins</li>
 										<li><i class="icon-check text-smaller"></i> <strong>SEO</strong> Features</li>
 										<li><i class="icon-check text-smaller"></i> <strong>Full</strong> Access</li>
 										<li><i class="icon-check text-smaller"></i> <strong>100</strong> User Accounts</li>
 										<li><i class="icon-check text-smaller"></i> <strong>1 Year</strong> License</li>
 										<li><i class="icon-check text-smaller"></i> <strong>24/7</strong> Support</li>
-									</ul> --}}
+									</ul>
                                     {!!$pricepost->body!!}
 								</div>
 								<div class="pricing-action">
@@ -442,11 +529,16 @@
 							</div>
 
 						</div>
-                        @endforeach
+                        @endforeach --}}
+
                         @endisset
 
 
                         @elseif($element->module_type == 'Price-Table Category')
+                        @php
+                            $pricecategories = App\Models\Pricing_Table\Pricecategory::all()->take($element->post_qty);
+                        @endphp
+
                         @isset($pricecategories)
                         @foreach ($pricecategories as $pricecategory)
                         {{-- <div class="col-sm-6 col-lg-{{($element->layout == 'One Column') ? 12 : (($element->layout == 'Two Column') ? 6 : (($element->layout == 'Three Column') ? 4 : 3)) }}">
@@ -465,7 +557,11 @@
                         @endisset
 
 
-                        @elseif($element->module_type == 'Portfolio Category' && $element->status == true)
+                        @elseif($element->module_type == 'Portfolio Category')
+                        @php
+                            $portfoliocategories = App\Models\Portfolio\Portfoliocategory::all()->take($element->post_qty);
+                        @endphp
+
                         @isset($portfoliocategories)
 
                         <div id="oc-portfolio" class="owl-carousel portfolio-carousel carousel-widget" data-margin="1" data-pagi="false" data-autoplay="5000" data-items-xs="1" data-items-sm="2" data-items-md="3" data-items-xl="4">
@@ -494,7 +590,11 @@
                         @endisset
 
 
-                        @elseif($element->module_type == 'Portfolio Post' && $element->status == true)
+                        @elseif($element->module_type == 'Portfolio Post')
+                        @php
+                            $portfolioposts = App\Models\Portfolio\Portfolio::all()->take($element->post_qty);
+                        @endphp
+
                         @isset($portfolioposts)
 
                         <div id="oc-portfolio" class="owl-carousel portfolio-carousel carousel-widget" data-margin="1" data-pagi="false" data-autoplay="5000" data-items-xs="1" data-items-sm="2" data-items-md="3" data-items-xl="4">
@@ -522,14 +622,96 @@
                         @endisset
 
 
-                        @else
+                        @elseif ($element->module_type == 'Client List')
 
+                        @php
+                            $clients = App\Models\Client::all();
+                            $count = count($clients);
+                            $half = ceil($count/2);
+                            $test = 2;
+                        @endphp
+
+                        @isset($clients)
+
+                        <div id="oc-events" class="owl-carousel events-carousel carousel-widget" data-pagi="false" data-autoplay="5000" data-items-md="1" data-items-lg="2" data-items-xl="2">
+                            {{-- @for ($i=1; $i<=$half; $i++) --}}
+                            @foreach ($clients as $key => $client)
+                            @if ($key%2 == 0)
+                            <div class="oc-item">
+                                <div class="entry event mb-3">
+                                    <div class="grid-inner row align-items-center g-0 p-4" style="background: #fff;">
+                                        <div class="col-md-4 mb-md-0">
+                                            <a href="#" class="entry-image" style="height: 100px; width: 150px; padding-top: 6%;">
+                                                <img src="{{asset('uploads/clientlogo/'.$client->logo)}}" alt="Inventore voluptates velit totam ipsa">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-8 ps-md-4">
+                                            <div class="entry-title title-xs">
+                                                <h3><a href="#">{{$client->name}}</a></h3>
+                                            </div>
+                                            {{-- <div class="entry-meta">
+                                                <ul>
+                                                    <li><a href="#"><i class="icon-line-link"></i>{{$client->website}}</a></li>
+                                                    <li><a href="#"><i class="icon-map-marker2"></i> Melbourne</a></li>
+                                                </ul>
+                                            </div> --}}
+                                            <div class="entry-content">
+                                                <ul>
+                                                    <li><a href="#"><i class="icon-line-link"></i>{{$client->website}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            @endforeach
+                        </div>
+
+                        <div id="oc-events" class="owl-carousel events-carousel carousel-widget" data-pagi="false" data-autoplay="5000" data-items-md="1" data-items-lg="2" data-items-xl="2">
+                            {{-- @for ($i=1; $i<=$half; $i++) --}}
+                            @foreach ($clients as $key => $client)
+                            @if ($key%2 != 0)
+                            <div class="oc-item">
+                                <div class="entry event mb-3">
+                                    <div class="grid-inner row align-items-center g-0 p-4" style="background: #fff;">
+                                        <div class="col-md-4 mb-md-0">
+                                            <a href="#" class="entry-image" style="height: 100px; width: 150px; padding-top: 6%;">
+                                                <img src="{{asset('uploads/clientlogo/'.$client->logo)}}" alt="Inventore voluptates velit totam ipsa">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-8 ps-md-4">
+                                            <div class="entry-title title-xs">
+                                                <h3><a href="#">{{$client->name}}</a></h3>
+                                            </div>
+                                            {{-- <div class="entry-meta">
+                                                <ul>
+                                                    <li><a href="#"><i class="icon-line-link"></i>{{$client->website}}</a></li>
+                                                    <li><a href="#"><i class="icon-map-marker2"></i> Melbourne</a></li>
+                                                </ul>
+                                            </div> --}}
+                                            <div class="entry-content">
+                                                <ul>
+                                                    <li><a href="#"><i class="icon-line-link"></i>{{$client->website}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            @endforeach
+                        </div>
+
+                        @endisset
+
+                        @elseif($element->module_type == 'Custome Element')
 
 
                         @if ($element->title)
                         @if ($element->title_show == 1)
                         <div class="heading-block">
-                            <h2>{{$element->title}}</h2>
+                            <h2 style="color: {{$element->title_color}};">{{$element->title}}</h2>
                         </div>
                         @endif
                         @endif
@@ -547,15 +729,6 @@
 
 
                         @isset($element->image)
-                        {{-- <a href="https://vimeo.com/101373765" class="d-block position-relative rounded overflow-hidden" data-lightbox="iframe">
-                            <img src="{{asset('uploads/elementphoto/'.$element->image)}}" alt="Image" class="w-100">
-                            <div class="bg-overlay">
-                                <div class="bg-overlay-content dark">
-                                    <i class="i-circled i-light icon-line-play m-0"></i>
-                                </div>
-                                <div class="bg-overlay-bg op-06 dark"></div>
-                            </div>
-                        </a> --}}
                         <img src="{{asset('uploads/elementphoto/'.$element->image)}}" height="{{$element->img_height}}" width="{{$element->img_width}}" >
                         @endisset
 
@@ -568,79 +741,40 @@
 
                 </div>
                 @endforeach
-
-                {{-- <section id="particles-news-js" class="container-lg slider-element swiper_wrapper min-vh-60 min-vh-md-80">
-                    <div class="slider-inner">
-
-                        <div class="swiper-container swiper-parent">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide dark">
-                                    <div class="container">
-
-                                        <div class="slider-caption slider-caption-center">
-                                            <h2 data-animate="fadeInUp">AGILE1TECH CORP.</br>
-
-                                                PASSIONATE FOR THE RIGHT SOLUTION
-
-                                            </h2>
-
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide-bg"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section> --}}
             </div>
 
-            <div class="line"></div>
-
-            {{-- <div class="row col-mb-50">
-                <div class="col-md-5">
-                    <a href="https://vimeo.com/101373765" class="d-block position-relative rounded overflow-hidden" data-lightbox="iframe">
-                        <img src="images/others/1.jpg" alt="Image" class="w-100">
-                        <div class="bg-overlay">
-                            <div class="bg-overlay-content dark">
-                                <i class="i-circled i-light icon-line-play m-0"></i>
-                            </div>
-                            <div class="bg-overlay-bg op-06 dark"></div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-7">
-                    <div class="heading-block">
-                        <h2>Globally Preferred Ecommerce Platform</h2>
-                    </div>
-
-                    <p>Worldwide John Lennon, mobilize humanitarian; emergency response donors; cause human experience effect. Volunteer Action Against Hunger Aga Khan safeguards women's.</p>
-
-                    <div class="row col-mb-30">
-                        <div class="col-sm-6 col-md-12 col-lg-6">
-                            <ul class="iconlist iconlist-color mb-0">
-                                <li><i class="icon-caret-right"></i> Responsive Ready Layout</li>
-                                <li><i class="icon-caret-right"></i> Retina Display Supported</li>
-                                <li><i class="icon-caret-right"></i> Powerful &amp; Optimized Code</li>
-                                <li><i class="icon-caret-right"></i> 380+ Templates Included</li>
-                            </ul>
-                        </div>
-
-                        <div class="col-sm-6 col-md-12 col-lg-6">
-                            <ul class="iconlist iconlist-color mb-0">
-                                <li><i class="icon-caret-right"></i> 12+ Headers &amp; Menu Designs</li>
-                                <li><i class="icon-caret-right"></i> Premium Sliders Included</li>
-                                <li><i class="icon-caret-right"></i> Light &amp; Dark Colors</li>
-                                <li><i class="icon-caret-right"></i> e-Commerce Design Included</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
+            {{-- <div class="line"></div> --}}
 
         </div>
         @endif
         @endforeach
+
+        <div class="row col-mb-50">
+            <div class="col-sm-6 col-lg-3 text-center">
+                <i class="i-plain i-xlarge mx-auto mb-0 icon-smile"></i>
+                <div class="counter counter-large" style="color: #1abc9c;"><span data-from="100" data-to="3700" data-refresh-interval="50" data-speed="2000"></span></div>
+                <h5>Happy Customer</h5>
+            </div>
+
+            <div class="col-sm-6 col-lg-3 text-center">
+                <i class="i-plain i-xlarge mx-auto mb-0 icon-download"></i>
+                <div class="counter counter-large" style="color: #e74c3c;"><span data-from="100" data-to="2050" data-refresh-interval="50" data-speed="2500"></span></div>
+                <h5>Total Downloads</h5>
+            </div>
+
+            <div class="col-sm-6 col-lg-3 text-center">
+                <i class="i-plain i-xlarge mx-auto mb-0 icon-gift"></i>
+                <div class="counter counter-large" style="color: #3498db;"><span data-from="100" data-to="2050" data-refresh-interval="50" data-speed="3500"></span></div>
+                <h5>Awards Won</h5>
+            </div>
+
+            <div class="col-sm-6 col-lg-3 text-center">
+                <i class="i-plain i-xlarge mx-auto mb-0 icon-user"></i>
+                <div class="counter counter-large" style="color: #9b59b6;"><span data-from="100" data-to="387" data-refresh-interval="30" data-speed="2700"></span></div>
+                <h5>Total Agents</h5>
+            </div>
+        </div>
+
 
 
 @endsection()

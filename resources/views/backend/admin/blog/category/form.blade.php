@@ -306,7 +306,7 @@
                     <div class="form-group">
 						<label class="form-label">Category Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" class="dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($category) ? asset($category->image) : '' }}" name="image">
+                        <input type="file" class="dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($category) ? asset('uploads/category/'.$category->image) : '' }}" name="image">
                         @error('image')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>

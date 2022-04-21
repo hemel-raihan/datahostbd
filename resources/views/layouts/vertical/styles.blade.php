@@ -1,8 +1,8 @@
 
     <!-- FAVICON -->
-    @php
+    {{-- @php
     $setting  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
-    @endphp
+    @endphp --}}
 
         @isset($setting)
         <link rel="shortcut icon" type="image/x-icon" href="{{asset('uploads/settings/'.$setting->logo)}}" />
