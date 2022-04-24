@@ -176,6 +176,7 @@ body {
 	line-height: 1.5;
 	color: #555;
 	font-family: 'Lato', sans-serif;
+    /* font-family: "Poppins",sans-serif; */
 }
 
 a {
@@ -6831,7 +6832,7 @@ body:not(.device-touch) .grid-container {
         #header-wrap {
             position: relative;
         }
-        .portfolio-image img{
+        /* .portfolio-image img{
             height: 130px !important;
             width: 130px !important;
             margin-left: 15px !important;
@@ -6839,7 +6840,24 @@ body:not(.device-touch) .grid-container {
         .centered {
             left: 40% !important;
             width: 60% !important;
+        } */
+        #top-bar
+        {
+            display: none;
         }
+        .ttm-btn.ttm-btn-size-md {
+            margin-left: 35%;
+        }
+        #slider_text
+        {
+            font-size: 40px !important;
+        }
+        #content p
+        {
+            line-height: 1.8;
+        }
+
+
     }
 
 #particles-js

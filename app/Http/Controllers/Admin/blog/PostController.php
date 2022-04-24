@@ -53,20 +53,18 @@ class PostController extends Controller
     public function store(Request $request)
     {
         Gate::authorize('app.blog.posts.create');
+
             $this->validate($request,[
                 'title' => 'required|unique:posts',
                 'image' => 'max:1024',
                 'gallaryimage.*' => 'max:1024',
                 'files' => 'mimes:pdf,doc,docx',
                 'categories' => 'required',
-                // 'leftsidebar_id' => 'required',
-                // 'rightsidebar_id' => 'required',
             ]);
 
-
-        //get form image
-        $image = $request->file('image');
-        $slug = Str::slug($request->title);
+        // //get form image
+         $image = $request->file('image');
+         $slug = Str::slug($request->title);
 
         if(isset($image))
         {
@@ -82,6 +80,28 @@ class PostController extends Controller
             // })->save($postphotoPath.'/'.$imagename);
 
         }
+
+
+        //$image = time().'.'.explode('/',explode(':', substr($request->data,0,strpos($request->data,';')))[1])[1];
+        //$image_base64 = base64_decode($request->data);
+
+        // $folderPath = public_path('uploads/postphoto');
+
+        // $image_parts = explode(";base64,", $request->data);
+
+        // $image_type_aux = explode("image/", $image_parts[0]);
+
+        // //return $image_type_aux;
+        // $image_type = $image_type_aux[1];
+        // return $image_type;
+        // $image_base64 = base64_decode($image_parts[1]);
+
+        // $file = $folderPath . uniqid() . '.'.$image_type;
+        // //$file_original_name = uniqid();
+
+        // file_put_contents($file, $image_base64);
+
+        // return 1;
 
 
          //get form Gallary image
@@ -184,7 +204,7 @@ class PostController extends Controller
             'title' => $request->title,
             'slug' => $slug,
             'admin_id' => Auth::id(),
-            'image' => $featureimg,
+            'image' => $imagename,
             'youtube_link' => $youtube,
             'gallaryimage'=>  implode("|",$images),
             'files' => $filename,

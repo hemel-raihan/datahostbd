@@ -22,6 +22,7 @@ class CreateSettingsTable extends Migration
             $table->string('email')->nullable();
             $table->string('facebook_link')->nullable();
             $table->string('contact')->nullable();
+            $table->string('map')->nullable();
             $table->boolean('preloader_status')->default(true);
             $table->string('MAIL_MAILER')->nullable();
             $table->string('MAIL_HOST')->nullable();

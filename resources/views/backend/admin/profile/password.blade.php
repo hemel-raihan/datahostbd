@@ -8,7 +8,7 @@
 
 
 <div class="row">
-    <div class="col-md-6" style="margin-left: 20%;">
+    <div class="col-md-6" id="password_settings" style="margin-left: 20%;">
 
         <form enctype="multipart/form-data" method="POST" action="{{route('admin.password.update')}}">
             @csrf

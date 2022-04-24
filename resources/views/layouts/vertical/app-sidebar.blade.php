@@ -163,9 +163,11 @@
 							</ul>
 						</li>
 
-                        <li><a href="{{route('admin.faqs.create')}}" class="side-menu__item"><i class="icon-line-fast-forward"></i>FAQ</a></li>
+                        <li><a href="{{route('admin.faqs.create')}}" class="side-menu__item"><i class="side-menu__icon fe fe-fast-forward"></i>FAQ</a></li>
 
-                        
+                        <li><a href="{{route('admin.counters.create')}}" class="side-menu__item"><i class="side-menu__icon fe fe-fast-forward"></i>Counter Up</a></li>
+
+
 
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-align-justify"></i><span class="side-menu__label">Sidebar</span><i class="angle fa fa-angle-right"></i></a>
@@ -175,13 +177,13 @@
 							</ul>
 						</li>
 
-						<li class="slide">
+						{{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-bell"></i><span class="side-menu__label">Notice</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.notices.create')}}" class="slide-item">Create New Notice </a></li>
 								<li><a href="{{route('admin.notices.index')}}" class="slide-item">All Notice</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-align-left"></i><span class="side-menu__label">Front Menu</span><i class="angle fa fa-angle-right"></i></a>

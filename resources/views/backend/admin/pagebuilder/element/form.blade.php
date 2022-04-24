@@ -143,6 +143,7 @@
                         <option value="Price-Table Category" {{($element->module_type == 'Price-Table Category') ? 'selected' : ''}} >Price-Table Category</option>
                         <option value="Price-Table Post" {{($element->module_type == 'Price-Table Post') ? 'selected' : ''}} >Price-Table Post</option>
                         <option value="Client List" {{($element->module_type == 'Client List') ? 'selected' : ''}} >Client List</option>
+                        <option value="Counter Up" {{($element->module_type == 'Counter Up') ? 'selected' : ''}} >Counter Up</option>
 					</select>
                     @else
                     <label class="form-label" for="type">Select Module Type</label>
@@ -167,6 +168,7 @@
                         <option value="Price-Table Category">Price-Table Category</option>
                         <option value="Price-Table Post">Price-Table Post</option>
                         <option value="Client List">Client List</option>
+                        <option value="Counter Up">Counter Up</option>
 					</select>
                     @endisset
 				</div>

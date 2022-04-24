@@ -281,7 +281,7 @@
                 <div class="col-lg-12">
 
                     <div class="row col-mb-50">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
 
                             <div class="widget clearfix">
 
@@ -312,7 +312,7 @@
                         @isset($footer_menuitems)
                 @foreach ($footer_menuitems as $footer_menuitem)
 
-                <div class="col-lg-3 col-sm-6 pb-2 pb-sm-0">
+                <div class="col-lg-3 col-md-8 pb-2 pb-sm-0">
                     <div class="widget">
                         <h4 style="color: {{$footer->text_color}}" class="widget-title pb-1">{{$footer_menuitem->title}}</h4>
                         @if(!$footer_menuitem->childs->isEmpty())
@@ -380,6 +380,22 @@
         </div><!-- .footer-widgets-wrap end -->
 
     </div>
+
+    <div id="copyrights" style="background: #2d316a">
+        <div class="container">
+
+            <div class="row col-mb-30">
+
+                <div style="color: {{$footer->text_color}};" class="text-center text-md-start">
+                   <p style="text-align: center;"> Copyrights &copy; 2022 All right reserved by <a href="https://datahostbd.com/">Data Host IT</a></p>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div><!-- #copyrights end -->
 
 
 </footer>

@@ -310,6 +310,14 @@ pre code {
     {
         display: none;
     }
+    #profile_settings
+    {
+        margin-left: 0% !important;
+    }
+    #password_settings
+    {
+        margin-left: 0% !important;
+    }
 }
 
 @media (max-width: 576px) {

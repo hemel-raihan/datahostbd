@@ -725,6 +725,16 @@ function fetchportfolio()
 
 <script>
 
+//     var height = document.documentElement.scrollHeight;
+
+// function scroll(event){
+//     var y = event.clientY;
+//     var yPercentage = y/screen.height;
+//     window.scrollTo(0,yPercentage*height);
+// }
+
+// window.onmousemove = scroll;
+
     function Foo_child(id) {
         var span_Text = document.getElementById("titlee-"+id).innerText;
         var span_Slug = document.getElementById("slug-"+id).innerText;

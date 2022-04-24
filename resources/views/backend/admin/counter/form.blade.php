@@ -84,7 +84,7 @@
 						<div class="page-header">
 
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.faqs.index')}}" class="btn btn-primary btn-icon text-white me-2">
+								<a href="{{route('admin.counters.index')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										{{-- <i class="fe fe-minus"></i> --}}
 									</span> Back To List
@@ -106,8 +106,9 @@
                         <table id="file-datatable" class="table table-bordered text-nowrap key-buttons border-bottom  w-100">
                             <thead>
                                 <tr>
-                                    <th class="border-bottom-0">Name</th>
-                                    <th class="border-bottom-0">Status</th>
+                                    <th class="border-bottom-0">Title</th>
+                                    <th class="border-bottom-0">Number</th>
+                                    <th class="border-bottom-0">Extra Text</th>
                                     <th class="border-bottom-0">Action</th>
                                 </tr>
                             </thead>
@@ -126,7 +127,7 @@
 
     <div id="create" class="card">
         <div class="card-header">
-            <h3 class="card-title">Create New Faq</h3>
+            <h3 class="card-title">Create New Counter</h3>
         </div>
         <div class="card-body">
 
@@ -146,8 +147,23 @@
             </div>
 
             <div class="form-group">
-                <label for="exampleInputname">Description</label>
-                <textarea name="desc" class="my-editor form-control" id="create_desc" style="height: 200px;" cols="30" rows="10"></textarea>
+                <label for="exampleInputname">Number</label>
+                <input type="number" class="form-control" value="" name="number"  id="create_number">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputname">Color</label>
+                <input type="text" class="form-control" placeholder="ex: #fff" name="color"  id="create_color">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputname">Icon</label>
+                <input type="text" class="form-control" placeholder="ex: user,download,smile " name="icon"  id="create_icon">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputname">Extra Text (k+, m+)</label>
+                <textarea name="extra_text" class="my-editor form-control" id="create_extra_text" style="height: 200px;" cols="30" rows="10"></textarea>
             </div>
 
 
@@ -177,7 +193,7 @@
                 </div>
             @endif
 
-            <input type="hidden" id="faq_edit_id" value="">
+            <input type="hidden" id="counter_edit_id" value="">
 
             <div class="form-group">
                 <label for="exampleInputname">Name</label>
@@ -185,8 +201,23 @@
             </div>
 
             <div class="form-group">
-                <label for="exampleInputname">Description</label>
-                <textarea name="desc" class="my-editor form-control" id="edit_desc" style="height: 200px;" cols="30" rows="10"></textarea>
+                <label for="exampleInputname">Number</label>
+                <input type="number" class="form-control" value="" name="number"  id="edit_number">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputname">Color</label>
+                <input type="text" class="form-control" placeholder="ex: #fff" name="color"  id="edit_color">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputname">Icon</label>
+                <input type="text" class="form-control" placeholder="ex: user,download,smile " name="icon"  id="edit_icon">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputname">Extra Text</label>
+                <textarea name="extra_text" class="my-editor form-control" id="edit_extra_text" style="height: 200px;" cols="30" rows="10"></textarea>
             </div>
 
 
@@ -212,7 +243,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javascript">
-    function deletepost$faq(id)
+    function deletepost$counter(id)
 
     {
         Swal.fire({
@@ -242,47 +273,38 @@
 
 $(document).ready(function(){
 
-    fetchfaq();
+    fetchcounter();
 
-function fetchfaq()
+function fetchcounter()
 {
     $.ajax({
         type: "GET",
-        url: "{{route('admin.faqs.fetch')}}",
+        url: "{{route('admin.counters.fetch')}}",
         dtaType: "json",
         success: function(response)
         {
             $('tbody').html('');
-            $.each(response.faqs, function(key, item){
+            $.each(response.counters, function(key, item){
 
 
                 var id = item.id;
 
 
-                if (item.status == true)
-                {
-                    html = '<button  value='+item.id+' class="active_status btn btn-green">Active</button>';
-                }
-                else
-                {
-                    html = '<button  value='+item.id+' class="inactive_status btn btn-danger">InActive</button>';
-                }
 
-                var delete_url = '{{ route("admin.faqs.destroy", ":faq") }}';
-                delete_url = delete_url.replace(':faq', id);
+                var delete_url = '{{ route("admin.counters.destroy", ":counter") }}';
+                delete_url = delete_url.replace(':counter', id);
 
                 $('tbody').append(`<tr>
                         <td>`+item.title+`</td>
-                        <td>
-                            `+html+`
-                        </td>
+                        <td>`+item.number+`</td>
+                        <td>`+item.extra_text+`</td>
                         <td>
                             <button class="edit_category btn btn-success waves effect" type="button"
                             value="`+item.id+`" >
                             <i class="fa fa-edit"></i>
                             </button>
                             <button class="btn btn-danger waves effect" type="button"
-                            onclick="deletepost$faq(`+item.id+`)" >
+                            onclick="deletepost$counter(`+item.id+`)" >
                             <i class="fa fa-trash"></i>
                             </button>
                             <form id="deleteform-`+item.id+`" action="`+delete_url+`" method="POST" style="display: none;">
@@ -296,72 +318,14 @@ function fetchfaq()
     });
 }
 
-$(document).on('click', '.active_status', function(e){
-    e.preventDefault();
-    var faq_id = $(this).val();
-    var urll = '{{ route("admin.faqs.status", ":id") }}';
-    urll = urll.replace(':id', faq_id);
-    $.ajax({
-        type: 'GET',
-        url: urll,
-        success: function(response)
-        {
-            if(response.status == 404)
-            {
-                iziToast.success({
-                title: 'Error',
-                message: response.message,
-                 });
-            }
-            else
-            {
-                fetchfaq();
-                    iziToast.success({
-                    title: 'Changed',
-                    message: 'Successfully In Active Status',
-                 });
-            }
-        }
-    });
-});
-
-
-$(document).on('click', '.inactive_status', function(e){
-    e.preventDefault();
-    var faq_id = $(this).val();
-    var urll = '{{ route("admin.faqs.status", ":id") }}';
-    urll = urll.replace(':id', faq_id);
-    $.ajax({
-        type: 'GET',
-        url: urll,
-        success: function(response)
-        {
-            if(response.status == 404)
-            {
-                iziToast.success({
-                title: 'Error',
-                message: response.message,
-                 });
-            }
-            else
-            {
-                fetchfaq();
-                    iziToast.success({
-                    title: 'Changed',
-                    message: 'Successfully Activated Status',
-                 });
-            }
-        }
-    });
-});
 
 
 $(document).on('click', '.edit_category', function(e){
     e.preventDefault();
-    var faq_id = $(this).val();
+    var counter_id = $(this).val();
     //document.getElementById("name").value = tax_id;
-    var urll = '{{ route("admin.faqs.edit", ":faq") }}';
-    urll = urll.replace(':faq', faq_id);
+    var urll = '{{ route("admin.counters.edit", ":counter") }}';
+    urll = urll.replace(':counter', counter_id);
     $.ajax({
         type: 'GET',
         url: urll,
@@ -376,12 +340,15 @@ $(document).on('click', '.edit_category', function(e){
             }
             else
             {
-                $.each(response.faqq, function(key, item){
+                $.each(response.counterss, function(key, item){
                     $('#create').hide();
                     $('#edit').show();
-                    $("#faq_edit_id").val(item.id);
+                    $("#counter_edit_id").val(item.id);
                     $("#edit_name").val(item.title);
-                    $("#edit_desc").val(item.desc);
+                    $("#edit_number").val(item.number);
+                    $("#edit_color").val(item.color);
+                    $("#edit_icon").val(item.icon);
+                    $("#edit_extra_text").val(item.extra_text);
                 });
             }
         }
@@ -392,10 +359,13 @@ $(document).on('click', '.edit_category', function(e){
 
         e.preventDefault();
         var name = $("#edit_name").val();
-        var desc = $("#edit_desc").val();
-        var faq_id = $("#faq_edit_id").val();
-        var urll = '{{ route("admin.faqs.update", ":faq") }}';
-        urll = urll.replace(':faq', faq_id);
+        var number = $("#edit_number").val();
+        var color = $("#edit_color").val();
+        var icon = $("#edit_icon").val();
+        var extra_text = $("#edit_extra_text").val();
+        var counter_id = $("#counter_edit_id").val();
+        var urll = '{{ route("admin.counters.update", ":counter") }}';
+        urll = urll.replace(':counter', counter_id);
 
         // var data = {
         //     _token: "{{ csrf_token() }}";
@@ -407,9 +377,12 @@ $(document).on('click', '.edit_category', function(e){
         method: 'PUT',
         data:{
                 _token: "{{ csrf_token() }}",
-                name:name,
-                desc:desc,
-                id: faq_id,
+                title:name,
+                number:number,
+                color:color,
+                icon:icon,
+                extra_text:extra_text,
+                id: counter_id,
                 },
         dataType: 'json',
         success:function(response){
@@ -424,9 +397,12 @@ $(document).on('click', '.edit_category', function(e){
                 message: 'Something Wrong',
                 });
             }
-            fetchfaq();
+            fetchcounter();
             $('#edit_name').val('');
-            $('#edit_desc').val('');
+            $('#edit_number').val('');
+            $('#edit_color').val('');
+            $('#edit_icon').val('');
+            $('#edit_extra_text').val('');
         },
         error:function(error){
             console.log(error)
@@ -440,8 +416,11 @@ $(document).on('click', '.edit_category', function(e){
 
         e.preventDefault();
         var name = $("input[name=title]").val();
-        var desc = $("#create_desc").val();
-        var url = '{{ route('admin.faqs.store') }}';
+        var number = $("input[name=number]").val();
+        var color = $("input[name=color]").val();
+        var icon = $("input[name=icon]").val();
+        var extra_text = $("#create_extra_text").val();
+        var url = '{{ route('admin.counters.store') }}';
 
         $.ajax({
         url:url,
@@ -449,7 +428,10 @@ $(document).on('click', '.edit_category', function(e){
         data:{
                 _token: "{{ csrf_token() }}",
                 title:name,
-                desc:desc,
+                number:number,
+                color:color,
+                icon:icon,
+                extra_text:extra_text,
                 },
         success:function(response){
             if(response.success){
@@ -464,9 +446,12 @@ $(document).on('click', '.edit_category', function(e){
                 message: 'Something Wrong',
                  });
             }
-            fetchfaq();
+            fetchcounter();
             $('#create_name').val('');
-            $('#create_desc').val('');
+            $('#create_number').val('');
+            $('#create_color').val('');
+            $('#create_icon').val('');
+            $('#create_extra_text').val('');
         },
         error:function(error){
             console.log(error)

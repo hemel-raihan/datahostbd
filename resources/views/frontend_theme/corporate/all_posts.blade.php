@@ -202,7 +202,7 @@
                 <div class="row">
 
                     @foreach ($alljobs as $alljob)
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="margin-bottom: 20px;">
                         <div class="grid-inner row align-items-center g-0 p-4" style="background: #f7f7f7;">
                             {{-- <div class="col-md-4 mb-md-0">
                                 <a href="#" class="entry-image">

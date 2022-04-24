@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Faq;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Counter;
+use Illuminate\Http\Request;
 
-class FaqController extends Controller
+class CounterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,15 +15,15 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $faqs = Faq::all();
-        return view('backend.admin.faq.form',compact('faqs'));
+        $counters = Counter::all();
+        return view('backend.admin.counter.form',compact('counters'));
     }
 
-    public function fetchfaq()
+    public function fetchcounter()
     {
-        $faqs = Faq::all();
+        $counters = Counter::all();
         return response()->json([
-            'faqs' => $faqs,
+            'counters' => $counters,
         ]);
     }
 
@@ -35,7 +34,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.faq.form');
+        return view('backend.admin.counter.form');
     }
 
     /**
@@ -47,15 +46,16 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'title' => 'required|unique:faqs',
+            'title' => 'required|unique:counters',
         ]);
-        $slug = Str::slug($request->title);
 
 
-        $faqs = Faq::create([
+        $counters = Counter::create([
             'title' => $request->title,
-            'slug' => $slug,
-            'desc' => $request->desc,
+            'number' => $request->number,
+            'color' => $request->color,
+            'icon' => $request->icon,
+            'extra_text' => $request->extra_text,
         ]);
 
         // notify()->success("Tax Successfully created","Added");
@@ -68,43 +68,13 @@ class FaqController extends Controller
         );
     }
 
-
-    public function status($id)
-    {
-        $faq = Faq::find($id);
-        if($faq->status == true)
-        {
-            $faq->status = false;
-            $faq->save();
-
-            return response()->json(
-                [
-                    'status' => 200,
-                ]
-            );
-        }
-        elseif($faq->status == false)
-        {
-            $faq->status = true;
-            $faq->save();
-
-            return response()->json(
-                [
-                    'status' => 200,
-                ]
-            );
-        }
-
-        //return redirect()->back();
-    }
-
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Faq  $faq
+     * @param  \App\Models\Counter  $counter
      * @return \Illuminate\Http\Response
      */
-    public function show(Faq $faq)
+    public function show(Counter $counter)
     {
         //
     }
@@ -112,18 +82,18 @@ class FaqController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Faq  $faq
+     * @param  \App\Models\Counter  $counter
      * @return \Illuminate\Http\Response
      */
-    public function edit(Faq $faq)
+    public function edit(Counter $counter)
     {
-        $faqq = Faq::find($faq);
-        if($faqq)
+        $counterss = Counter::find($counter);
+        if($counterss)
         {
             return response()->json(
                 [
                     'status' => 200,
-                    'faqq' => $faqq,
+                    'counterss' => $counterss,
                 ]
             );
         }
@@ -132,7 +102,7 @@ class FaqController extends Controller
             return response()->json(
                 [
                     'status' => 404,
-                    'message' => 'Faq Not Found'
+                    'message' => 'Counter Not Found'
                 ]
             );
         }
@@ -142,17 +112,19 @@ class FaqController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Faq  $faq
+     * @param  \App\Models\Counter  $counter
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Faq $faq)
+    public function update(Request $request, Counter $counter)
     {
-        $faqq = Faq::find($request->id);
-        $slug = Str::slug($request->title);
-        $faqq->update([
+        $counterss = Counter::find($request->id);
+
+        $counterss->update([
             'title' => $request->title,
-            'slug' => $slug,
-            'desc' => $request->desc,
+            'number' => $request->number,
+            'color' => $request->color,
+            'icon' => $request->icon,
+            'extra_text' => $request->extra_text,
         ]);
 
         return response()->json(
@@ -166,12 +138,12 @@ class FaqController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Faq  $faq
+     * @param  \App\Models\Counter  $counter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Faq $faq)
+    public function destroy(Counter $counter)
     {
-        $faq->delete();
+        $counter->delete();
         notify()->success('Faq Deleted Successfully','Delete');
         return back();
     }

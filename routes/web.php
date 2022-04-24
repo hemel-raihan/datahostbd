@@ -234,7 +234,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('mail/settings','SettingController@mail')->name('mail.settings');
     Route::put('mail/settings/update/{setting}', 'SettingController@mailupdate')->name('mail.settings.update');
 
-    Route::post('/contact/index', 'ContactController@index')->name('contact.index');
+    Route::get('/contact/index', 'ContactController@index')->name('contact.index');
+    Route::delete('/contact/delete/{contact}', 'ContactController@destroy')->name('contact.destroy');
 
     Route::resource('gallery/gallerycategories','Gallery\GallcategoryController');
     Route::get('fetch/gallerycategories', 'Gallery\GallcategoryController@fetchcategory')->name('gallerycategories.fetch');
@@ -262,6 +263,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('faqs','FaqController');
     Route::get('fetch/faqs', 'FaqController@fetchfaq')->name('faqs.fetch');
     Route::get('faqs/{id}/status', 'FaqController@status')->name('faqs.status');
+
+    Route::resource('counters','CounterController');
+    Route::get('fetch/counters', 'CounterController@fetchcounter')->name('counters.fetch');
 });
 
 

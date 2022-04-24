@@ -20,7 +20,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::paginate(10);
+        return view('backend.admin.contact.customer_msg',compact('contacts'));
     }
 
     /**
@@ -99,6 +100,9 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
+
+        notify()->success('Deleted Successfully','Delete');
+        return back();
     }
 }

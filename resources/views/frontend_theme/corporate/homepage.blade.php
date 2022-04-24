@@ -627,6 +627,7 @@
                         @php
                             $clients = App\Models\Client::all();
                             $count = count($clients);
+                            $cou = $count-2;
                             $half = ceil($count/2);
                             $test = 2;
                         @endphp
@@ -634,20 +635,19 @@
                         @isset($clients)
 
                         <div id="oc-events" class="owl-carousel events-carousel carousel-widget" data-pagi="false" data-autoplay="5000" data-items-md="1" data-items-lg="2" data-items-xl="2">
-                            {{-- @for ($i=1; $i<=$half; $i++) --}}
-                            @foreach ($clients as $key => $client)
-                            @if ($key%2 == 0)
+                            @for ($i=0; $i<=$cou; $i+=2)
+
                             <div class="oc-item">
                                 <div class="entry event mb-3">
                                     <div class="grid-inner row align-items-center g-0 p-4" style="background: #fff;">
                                         <div class="col-md-4 mb-md-0">
-                                            <a href="#" class="entry-image" style="height: 100px; width: 150px; padding-top: 6%;">
-                                                <img src="{{asset('uploads/clientlogo/'.$client->logo)}}" alt="Inventore voluptates velit totam ipsa">
+                                            <a href="#" class="entry-image" style="height: 100px; width: 115px; padding-top: 5%;">
+                                                <img src="{{asset('uploads/clientlogo/'.$clients[$i]['logo'])}}" alt="Inventore voluptates velit totam ipsa">
                                             </a>
                                         </div>
                                         <div class="col-md-8 ps-md-4">
                                             <div class="entry-title title-xs">
-                                                <h3><a href="#">{{$client->name}}</a></h3>
+                                                <h3><a href="#">{{$clients[$i]['name']}}</a></h3>
                                             </div>
                                             {{-- <div class="entry-meta">
                                                 <ul>
@@ -657,19 +657,48 @@
                                             </div> --}}
                                             <div class="entry-content">
                                                 <ul>
-                                                    <li><a href="#"><i class="icon-line-link"></i>{{$client->website}}</a></li>
+                                                    <li><a href="#"><i class="icon-line-link"></i>{{$clients[$i]['website']}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="entry event mb-3">
+                                    <div class="grid-inner row align-items-center g-0 p-4" style="background: #fff;">
+                                        <div class="col-md-4 mb-md-0">
+                                            <a href="#" class="entry-image" style="height: 100px; width: 150px; padding-top: 6%;">
+                                                <img src="{{asset('uploads/clientlogo/'.$clients[$i+1]['logo'])}}" alt="Inventore voluptates velit totam ipsa">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-8 ps-md-4">
+                                            <div class="entry-title title-xs">
+                                                <h3><a href="#">{{$clients[$i+1]['name']}}</a></h3>
+                                            </div>
+                                            {{-- <div class="entry-meta">
+                                                <ul>
+                                                    <li><a href="#"><i class="icon-line-link"></i>{{$client->website}}</a></li>
+                                                    <li><a href="#"><i class="icon-map-marker2"></i> Melbourne</a></li>
+                                                </ul>
+                                            </div> --}}
+                                            <div class="entry-content">
+                                                <ul>
+                                                    <li><a href="#"><i class="icon-line-link"></i>{{$clients[$i+1]['name']}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
                             </div>
-                            @endif
-                            @endforeach
+                            @endfor
+
                         </div>
 
-                        <div id="oc-events" class="owl-carousel events-carousel carousel-widget" data-pagi="false" data-autoplay="5000" data-items-md="1" data-items-lg="2" data-items-xl="2">
-                            {{-- @for ($i=1; $i<=$half; $i++) --}}
+                        {{-- <div id="oc-events" class="owl-carousel events-carousel carousel-widget" data-pagi="false" data-autoplay="5000" data-items-md="1" data-items-lg="2" data-items-xl="2">
+
                             @foreach ($clients as $key => $client)
                             @if ($key%2 != 0)
                             <div class="oc-item">
@@ -684,12 +713,6 @@
                                             <div class="entry-title title-xs">
                                                 <h3><a href="#">{{$client->name}}</a></h3>
                                             </div>
-                                            {{-- <div class="entry-meta">
-                                                <ul>
-                                                    <li><a href="#"><i class="icon-line-link"></i>{{$client->website}}</a></li>
-                                                    <li><a href="#"><i class="icon-map-marker2"></i> Melbourne</a></li>
-                                                </ul>
-                                            </div> --}}
                                             <div class="entry-content">
                                                 <ul>
                                                     <li><a href="#"><i class="icon-line-link"></i>{{$client->website}}</a></li>
@@ -700,6 +723,26 @@
                                 </div>
                             </div>
                             @endif
+                            @endforeach
+                        </div> --}}
+
+                        @endisset
+
+                        @elseif ($element->module_type == 'Counter Up')
+
+                        @php
+                            $counters = App\Models\Counter::all();
+                        @endphp
+
+                        @isset($counters)
+
+                        <div class="row col-mb-50">
+                            @foreach ($counters as $counter)
+                            <div class="col-sm-6 col-lg-3 text-center">
+                                <i class="i-plain i-xlarge mx-auto mb-0 icon-{{$counter->icon}}"></i>
+                                <div class="counter counter-large" style="color: {{$counter->color}};"><span data-from="100" data-to="{{$counter->number}}{{$counter->extra_text}}" data-refresh-interval="50" data-speed="2000"></span></div>
+                                <h5>{{$counter->title}}</h5>
+                            </div>
                             @endforeach
                         </div>
 
@@ -749,7 +792,7 @@
         @endif
         @endforeach
 
-        <div class="row col-mb-50">
+        {{-- <div class="row col-mb-50">
             <div class="col-sm-6 col-lg-3 text-center">
                 <i class="i-plain i-xlarge mx-auto mb-0 icon-smile"></i>
                 <div class="counter counter-large" style="color: #1abc9c;"><span data-from="100" data-to="3700" data-refresh-interval="50" data-speed="2000"></span></div>
@@ -773,7 +816,7 @@
                 <div class="counter counter-large" style="color: #9b59b6;"><span data-from="100" data-to="387" data-refresh-interval="30" data-speed="2700"></span></div>
                 <h5>Total Agents</h5>
             </div>
-        </div>
+        </div> --}}
 
 
 

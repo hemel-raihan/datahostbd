@@ -8,17 +8,19 @@
         <link href="{{ asset('assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
 		<!-- INTERNAL Fancy File Upload css -->
 		<link href="{{ asset('assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
-        <!-- WYSIWYG EDITOR CSS -->
-        <link href="{{ asset('assets/plugins/wysiwyag/richtext.css') }}" rel="stylesheet"/>
+
+        {{-- <!-- WYSIWYG EDITOR CSS -->
+        <link href="{{ asset('assets/plugins/wysiwyag/richtext.css') }}" rel="stylesheet"/> --}}
 
         <!-- SUMMERNOTE CSS -->
         <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.css') }}">
 
-        <!-- INTERNAL Quill css -->
+        {{-- <!-- INTERNAL Quill css -->
         <link href="{{ asset('assets/plugins/quill/quill.snow.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/plugins/quill/quill.bubble.css') }}" rel="stylesheet">
-        <!-- INTERNAL SELECT2 CSS -->
-        <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('assets/plugins/quill/quill.bubble.css') }}" rel="stylesheet"> --}}
+
+        {{-- <!-- INTERNAL SELECT2 CSS -->
+        <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/> --}}
 
 		<!-- INTERNAL Jquerytransfer css-->
 		<link rel="stylesheet" href="{{ asset('assets/plugins/jQuerytransfer/jquery.transfer.css') }}">
@@ -42,14 +44,14 @@
 		        <!-- FILE UPLODE CSS -->
 				<link href="{{ asset('assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
 
-				<!-- SELECT2 CSS -->
-				<link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
+				{{-- <!-- SELECT2 CSS -->
+				<link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/> --}}
 
 				<!-- INTERNAL Fancy File Upload css -->
 				<link href="{{ asset('assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
 
-				<!--BOOTSTRAP-DATERANGEPICKER CSS-->
-				<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.css') }}">
+				{{-- <!--BOOTSTRAP-DATERANGEPICKER CSS-->
+				<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.css') }}"> --}}
 
 				<!-- TIME PICKER CSS -->
 				<link href="{{ asset('assets/plugins/time-picker/jquery.timepicker.css') }}" rel="stylesheet"/>
@@ -57,15 +59,15 @@
 				<!-- INTERNAL Date Picker css -->
 				<link href="{{ asset('assets/plugins/date-picker/date-picker.css') }}" rel="stylesheet" />
 
-				<!-- INTERNAL Sumoselect css-->
-				<link rel="stylesheet" href="{{ asset('assets/plugins/sumoselect/sumoselect.css') }}">
+				{{-- <!-- INTERNAL Sumoselect css-->
+				<link rel="stylesheet" href="{{ asset('assets/plugins/sumoselect/sumoselect.css') }}"> --}}
 
 				<!-- INTERNAL Jquerytransfer css-->
 				<link rel="stylesheet" href="{{ asset('assets/plugins/jQuerytransfer/jquery.transfer.css') }}">
 				<link rel="stylesheet" href="{{ asset('assets/plugins/jQuerytransfer/icon_font/icon_font.css') }}">
 
-				<!-- INTERNAL Bootstrap DatePicker css-->
-				<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css') }}">
+				{{-- <!-- INTERNAL Bootstrap DatePicker css-->
+				<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css') }}"> --}}
 
 				<!-- MULTI SELECT CSS -->
 				<link rel="stylesheet" href="{{ asset('assets/plugins/multipleselect/multiple-select.css') }}">
@@ -75,6 +77,16 @@
 
 				<!-- INTERNAL multi css-->
 				<link rel="stylesheet" href="{{ asset('assets/plugins/multi/multi.min.css') }}">
+
+                {{-- <style>
+                    .image-previewer {
+                        height: 300px;
+                        width: 300px;
+                        display: flex;
+                        border-radius: 10px;
+                        border: 1px solid lightgrey;
+                    }
+                </style> --}}
 
 @endsection
 
@@ -147,7 +159,7 @@
 
 					<div class="form-group">
 						<label for="exampleInputname">Post Title</label>
-						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$post->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
+						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$post->title ?? old('title')}}" name="title" id="posttitle"  placeholder="Post Name">
                         @error('title')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
@@ -432,6 +444,9 @@
                         <input type="file" class="dropify form-control" data-default-file="{{ isset($post) ? asset('uploads/postphoto/'.$post->image) : '' }}" name="image">
 					</div>
 
+                    {{-- <label for="cropzee-input" class="image-previewer" data-cropzee="cropzee-input"></label>
+	                <input id="cropzee-input" type="file" name="image" accept="image/*"> --}}
+
                     <div class="form-group">
 						<label class="form-label">Gallary Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
@@ -487,6 +502,12 @@
 	    });
 	}
 </script>
+
+{{-- <script>
+    $(document).ready(function(){
+        $("#cropzee-input").cropzee({startSize: [85, 85, '%'],});
+    });
+</script> --}}
 
 {{-- <script src="{{asset('ckeditor/ckeditor.js')}}"></script> --}}
 
@@ -569,9 +590,9 @@ function myFunction() {
         <script src="{{ asset('assets/plugins/chart/Chart.bundle.js')}}"></script>
 		<script src="{{ asset('assets/plugins/chart/utils.js')}}"></script>
 
-        <!-- INTERNAL SELECT2 JS -->
+        {{-- <!-- INTERNAL SELECT2 JS -->
         <script src="{{ asset('assets/plugins/select2/select2.full.min.js') }}"></script>
-		<script src="{{ asset('assets/js/select2.js') }}"></script>
+		<script src="{{ asset('assets/js/select2.js') }}"></script> --}}
 		<!-- FILE UPLOADES JS -->
 		<script src="{{ asset('assets/plugins/fileuploads/js/fileupload.js') }}"></script>
 		<script src="{{ asset('assets/plugins/fileuploads/js/file-upload.js') }}"></script>
@@ -583,8 +604,9 @@ function myFunction() {
         <script src="{{ asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js') }}"></script>
         <script src="{{ asset('assets/plugins/fancyuploder/fancy-uploader.js') }}"></script>
 
-		<!-- WYSIWYG Editor JS -->
-		<script src="{{ asset('assets/plugins/wysiwyag/jquery.richtext.js') }}"></script>
+		{{-- <!-- WYSIWYG Editor JS -->
+		<script src="{{ asset('assets/plugins/wysiwyag/jquery.richtext.js') }}"></script> --}}
+
 		<script src="{{ asset('assets/plugins/wysiwyag/wysiwyag.js') }}"></script>
 
 		<!-- INTERNAL multi js-->
@@ -606,7 +628,7 @@ function myFunction() {
 		<script src="{{ asset('assets/plugins/summernote/summernote-bs4.js') }}"></script>
 
 		<!-- FORMEDITOR JS -->
-		<script src="{{ asset('assets/plugins/quill/quill.min.js') }}"></script>
+		{{-- <script src="{{ asset('assets/plugins/quill/quill.min.js') }}"></script> --}}
 		<script src="{{ asset('assets/js/form-editor2.js') }}"></script>
 
 @endsection

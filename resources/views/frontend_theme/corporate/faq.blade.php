@@ -11,6 +11,9 @@
                     @endphp
 
 
+@include('frontend_theme.corporate.front_layout.vertical.banner',['Faq'=> 'Faq'])
+
+                <div class="container-sm">
 
                                 @if ($page->rightsidebar_id == 0 && $page->leftsidebar_id == 0)
                                 <div class="postcontent col-lg-12">
@@ -29,41 +32,31 @@
                                         ============================================= -->
                                 <div class="entry clearfix">
 
-                                    <div class="entry-title">
-                                        <h2>FAQ</h2>
-                                    </div>
                                     </br>
-
-                                    <p>
-                                       <a data-bs-toggle="collapse" href="#collapseExample1"  aria-expanded="false" aria-controls="collapseExample">
-                                        <i class="icon-line-square-plus"> </i>   How do I join The IIA Bangladesh?
-                                        </a>
-                                      </p>
-                                      <div class="collapse" id="collapseExample1">
-
-                                            <p>
-                                                To join IIA Bangladesh please visit the membership section of this website. (Link the How to Join page in blue colored words)
-                                            </p>
-                                      </div>
-
-                                      <p>
-                                        <a data-bs-toggle="collapse" href="#collapseExample2"  aria-expanded="false" aria-controls="collapseExample">
-                                         <i class="icon-line-square-plus"> </i>   What are the benefits of membership in The IIA?
-                                         </a>
-                                       </p>
-                                       <div class="collapse" id="collapseExample2">
-
-                                             <p>
-                                                A list of membership benefits is available in the membership section of this website. (link the benefit page in blue colored words)
-                                             </p>
-                                       </div>
-
-
+                                </br>
+                                @php
+                                    $faqs = \App\Models\Faq::where('status','=',1)->get();
+                                @endphp
+                                @isset($faqs)
+                                @foreach ($faqs as $faq)
+                                <div class="toggle toggle-bg">
+                                    <div class="toggle-header">
+                                        <div class="toggle-icon">
+                                            <i class="toggle-closed icon-ok-circle"></i>
+                                            <i class="toggle-open icon-remove-circle"></i>
+                                        </div>
+                                        <div class="toggle-title">
+                                            {{$faq->title}}
+                                        </div>
+                                    </div>
+                                    <div class="toggle-content">{{$faq->desc}}</div>
+                                </div>
+                                @endforeach
+                                @endisset
 
                             </div>
                         </div>
-
-
+                    </div>
 
 
 @endsection()

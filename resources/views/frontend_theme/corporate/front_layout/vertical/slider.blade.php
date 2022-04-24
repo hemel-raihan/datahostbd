@@ -6,7 +6,7 @@
 
                 <div class="heading-block mb-0 center">
                     <h1>
-                        <span style="color: #fff; font-size: 60px;" class="text-rotater nocolor" data-separator="|" data-rotate="flipInX" data-speed="3500">
+                        <span id="slider_text" style="color: #fff; font-size: 60px;" class="text-rotater nocolor" data-separator="|" data-rotate="flipInX" data-speed="3500">
                            <strong style="color: coral;"> Hosting </strong> And <strong style="color:blueviolet;"> Software </strong> Servicing Company in Bangladesh</span>
                         </span>
                     </h1>
@@ -128,7 +128,7 @@
                 <div class="bg-theme-GreyColor ttm-col-bgcolor-yes ttm-bg rounded p-30 p-lg-20 mt_60 mt-lg-50">
                     <div class="ttm-col-wrapper-bg-layer ttm-bg-layer"></div>
                     <div class="layer-content">
-                        <form id="search_Form" class="search_Form wrap-form m-1 border rounded rounded-3 overflow-hidden" method="post" action="#" data-mailchimp="true">
+                        <form id="search_Form" class="search_Form wrap-form m-1 border rounded rounded-3 overflow-hidden" method="" action="#" data-mailchimp="true">
                             <label><i class="ti ti-search"></i><input type="text" id="filter" placeholder="Job Title or Keywords"></label>
                             <label><i class="ti ti-location-pin"></i><input type="email" name="EMAIL" id="txtemail" placeholder="location"></label>
                             <button class="submit ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor h-auto" type="submit">Find Jobs</button>

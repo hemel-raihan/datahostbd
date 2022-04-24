@@ -68,6 +68,7 @@ class SettingController extends Controller
             'facebook_link' => $request->facebook_link,
             'logo' => $imagename,
             'contact' => $request->contact,
+            'map' => $request->map,
             'preloader_status' => $status,
         ]);
 

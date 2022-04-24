@@ -1,5 +1,5 @@
 
-        
+
         <!-- BACK-TO-TOP -->
 		<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
 
@@ -32,6 +32,21 @@
 
 		<!-- CUSTOM JS-->
 		<script src="{{ asset('assets/js/custom.js') }}"></script>
+
+        <script src="{{asset('js/cropzee.js')}}" defer></script>
+
+        {{-- <script>
+
+            function cropImge(sismoo_file){
+
+            $.post('{{ route('admin.posts.store') }}', {  _token: "{{ csrf_token() }}", data:sismoo_file}, function(data){
+                    console.log(data);
+                });
+
+            }
+
+        </script> --}}
+
 
         @include('vendor.lara-izitoast.toast')
 

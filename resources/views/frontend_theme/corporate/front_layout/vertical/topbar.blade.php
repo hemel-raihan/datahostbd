@@ -15,9 +15,9 @@
                                 <li class="top-links-item"><a href="contact.html">Suite 20 Golden Street USA</a></li>
                             </ul>
                         </li> --}}
-                        <li class="top-links-item"><a href="#"><i class="icon-line-phone-call"></i> (+01)123 456 789</a></li>
-                        <li class="top-links-item"><a href="#"><i class="icon-email3"></i> info@example.com</a></li>
-                        <li class="top-links-item"><a href="#"><i class="icon-address-card1"></i> Suite 20 Golden Street USA</a></li>
+                        <li class="top-links-item"><a href="#"><i class="icon-line-phone-call"></i> {{$setting->phone}}</a></li>
+                        <li class="top-links-item"><a href="#"><i class="icon-email3"></i> {{$setting->email}}</a></li>
+                        <li class="top-links-item"><a href="#"><i class="icon-address-card1"></i> {{$setting->contact}}</a></li>
                             {{-- <div class="top-links-section">
                                 <form id="top-login" autocomplete="off">
                                     <div class="form-group">

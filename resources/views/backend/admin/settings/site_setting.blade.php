@@ -173,10 +173,10 @@
                         @enderror
 					</div>
 
-					<div class="form-group">
-						<label class="form-label">Site Logo</label>
-                        <input type="file" data-height="100" class="dropify form-control @error('logo') is-invalid @enderror" data-default-file="{{asset('uploads/settings/'.$setting->logo) }}" name="logo">
-                        @error('logo')
+                    <div class="form-group">
+						<label for="exampleInputname">Map (Embed Code)</label>
+						<input type="text" class="form-control @error('map') is-invalid @enderror" value="{{$setting->map ?? old('map')}}" name="map" id="" placeholder="enter your map's embed code">
+                        @error('map')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
                         </span>
@@ -205,6 +205,16 @@
 							<input type="checkbox" name="preloader_status" {{$setting->preloader_status == true ? 'checked' : ''}} class="custom-switch-input ">
 							<span class="custom-switch-indicator"></span>
 						</label>
+					</div>
+
+                    <div class="form-group">
+						<label class="form-label">Site Logo</label>
+                        <input type="file"  class="dropify form-control @error('logo') is-invalid @enderror" data-default-file="{{asset('uploads/settings/'.$setting->logo) }}" name="logo">
+                        @error('logo')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
 					</div>
 
 				</div>

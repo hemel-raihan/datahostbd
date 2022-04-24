@@ -5,9 +5,11 @@
 @endsection
 
 @section('content')
+@php
+    $setting  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
+@endphp
 
-
-
+<div class="container-sm">
                 {{-- <div class="single-post mb-0" style="width: 80%; margin-left:10%;"> --}}
                     <div class="single-post mb-0" >
 
@@ -15,98 +17,14 @@
                     ============================================= -->
                     <div class="entry clearfix">
 
+
+                    <div class="center mb-5">
+                        <h1 class="fw-bold display-4">Contact Us..</h1>
+                    </div>
                     {{-- <div class="form-widget" data-loader="button" data-alert-type="inline"> --}}
 
                         <div class="row">
-                            <div class="col-12 col-sm-12" id="contact_us_address" style="width: 50%; margin-left: 25%;">
-                                <div class="address1" style="border: 2px solid #9f0075; padding: 25px; width: 50%; margin-left: 25%;">
-                                    <label>Bangladesh (Corporate Office)</label></br>
-
-                                    <label><i style="color: #9f0075;" class="icon-building"></i>
-                                        House # 27 Road + Lane # 01,</br>
-                                        Block #H,H/E, Halishahar</br>
-                                        Chittagong, Bangladesh.</br>
-                                        Cell # 01819363620
-                                    </label> </br>
-                                    <label><i style="color: #9f0075;" class="icon-email3"></i>
-                                        Email:</br> MD helal@colombiafashionbd.com</label></br>
-                                    <label>Email:</br> CEO rinku@colombiafashionbd.com </br>
-                                        info@colombiafashionbd.com </br>
-                                        www.colombiafashionbd.com
-                                    </label>
-                                </div>
-                            </br>
-                            </br>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="" style="border: 2px solid #9f0075; padding: 25px;">
-                                            <label>USA Office</label></br>
-
-                                            <label><i style="color: #9f0075;" class="icon-building"></i>
-                                                5101 13th Avenue Apt# 5b, Brooklyn,</br>
-                                                11219, Ny, Usa cell #0019173488714
-                                            </label> </br>
-                                            <label><i style="color: #9f0075;" class="icon-email3"></i>
-                                                Email:</br> alam@colombiafashionbd.com</br>
-                                                <a href="www.colombiafashionbd.com">www.colombiafashionbd.com</a>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="" style="border: 2px solid #9f0075; padding: 25px; ">
-                                            <label>Germany Office</label></br>
-
-                                            <label><i style="color: #9f0075;" class="icon-building"></i>
-                                                Gottschedstrasse 3, D-13347,</br>
-                                                Berlin, Germany
-                                            </label> </br>
-                                            <label><i style="color: #9f0075;" class="icon-email3"></i>
-                                                Email:</br> tamir@colombiafashionbd.com </br>
-                                                <a href="www.colombiafashionbd.com">www.colombiafashionbd.com</a>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </br>
-                        </br>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="" style="border: 2px solid #9f0075; padding: 25px;">
-                                        <label>China Office</label></br>
-
-                                        <label><i style="color: #9f0075;" class="icon-building"></i>
-                                            Building A, Lian’an Industrial,</br>
-                                            Zone, Yanbu, Nanhai, Foshan</br>
-                                            City, Guangdong, China 528247</br>
-                                            Cell# 00861866374226
-                                        </label> </br>
-                                        <label><i style="color: #9f0075;" class="icon-email3"></i>
-                                            Email:</br> wingarli@colombiafashionbd.com</br>
-                                            <a href="www.colombiafashionbd.com">www.colombiafashionbd.com</a>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="" style="border: 2px solid #9f0075; padding: 25px; ">
-                                        <label>Hong Kong Office</label></br>
-
-                                        <label><i style="color: #9f0075;" class="icon-building"></i>
-                                            Room 10a, 9/F, Block B, GoodView</br>
-                                            Industrial Building, No.11 Kin fat Street,</br>
-                                            Tuen Mun N.T. ong Kong</br>
-                                        </label> </br>
-                                        <label><i style="color: #9f0075;" class="icon-email3"></i>
-                                            Email:</br> ming@colombiafashionbd.com</br>
-                                            <a href="www.colombiafashionbd.com">www.colombiafashionbd.com</a>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </br>
-                    </br>
-                            </div>
-                            <div class="col-12 col-sm-12" id="contact_us_form" style="width: 50%; margin-left: 25%;">
+                            <div class="col-md-6">
                                 <form id="coming-soon-registration" class="mb-0" action="{{route('contact.store')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-process"></div>
@@ -144,7 +62,9 @@
                                     </div> --}}
                                 </form>
                             </div>
-
+                            <div class="col-md-6">
+                                <iframe src="{{$setting->map}}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
                         </div>
 
 
@@ -154,8 +74,7 @@
 
                 </div>
     </div>
-
-
+</div>
 
 @endsection()
 

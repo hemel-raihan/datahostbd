@@ -145,7 +145,7 @@
                  <div class="oc-item">
                      <div class="portfolio-item">
                          <div class="portfolio-image">
-                             <a href="{{route('service.details',$servicecategorypost->id)}}">
+                             <a href="{{route('service.details',$servicecategorypost->slug)}}">
                                  <img src="{{asset('uploads/servicephoto/'.$servicecategorypost->image)}}" alt="Open Imagination">
                              </a>
                              {{-- <div class="bg-overlay">
@@ -157,7 +157,7 @@
                              </div> --}}
                          </div>
                          <div class="portfolio-desc">
-                             <h3><a href="{{route('service.details',$servicecategorypost->id)}}">{{$servicecategorypost->title}}</a></h3>
+                             <h3><a href="{{route('service.details',$servicecategorypost->slug)}}">{{$servicecategorypost->title}}</a></h3>
                              <span>@foreach ($servicecategorypost->servicecategories as $category)
                                  <a href="#">{{$category->name}}</a>
                              @endforeach</span>
